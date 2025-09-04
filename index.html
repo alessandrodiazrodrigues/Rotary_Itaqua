@@ -649,6 +649,12 @@
             border-color: var(--danger);
         }
 
+        .alert-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border-color: var(--interact-blue);
+        }
+
         /* Badge */
         .badge {
             padding: 0.3rem 0.6rem;
@@ -670,6 +676,15 @@
         .badge-primary {
             background: var(--rotary-blue);
             color: white;
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(23, 69, 143, 0.05) 0%, rgba(0, 162, 224, 0.05) 100%);
+            border: 2px solid var(--rotary-gold);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
         }
     </style>
 </head>
@@ -716,6 +731,10 @@
                 <i class="fas fa-users"></i>
                 Companheiros
             </button>
+            <button class="nav-tab" onclick="showTab('how-it-works')">
+                <i class="fas fa-info-circle"></i>
+                Como Funciona
+            </button>
             <button class="nav-tab" onclick="showTab('reports')">
                 <i class="fas fa-file-alt"></i>
                 Relatórios
@@ -734,17 +753,17 @@
                     <i class="fas fa-calendar-check stat-icon"></i>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-value">347</div>
+                    <div class="stat-value">265</div>
                     <div class="stat-label">Convites Vendidos</div>
                     <i class="fas fa-ticket-alt stat-icon"></i>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-value">R$ 52.050</div>
+                    <div class="stat-value">R$ 22.530</div>
                     <div class="stat-label">Faturamento Total</div>
                     <i class="fas fa-coins stat-icon"></i>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-value">94%</div>
+                    <div class="stat-value">89%</div>
                     <div class="stat-label">Taxa Check-in</div>
                     <i class="fas fa-chart-pie stat-icon"></i>
                 </div>
@@ -754,7 +773,7 @@
                 <div class="card-header">
                     <h2 class="card-title">
                         <i class="fas fa-calendar-alt"></i>
-                        Eventos Recentes
+                        Eventos Ativos
                     </h2>
                     <button class="btn btn-primary" onclick="showModal('createEvent')">
                         <i class="fas fa-plus"></i>
@@ -765,29 +784,33 @@
                 <div class="event-card">
                     <div class="event-header">
                         <div>
-                            <h3 class="event-title">Jantar Beneficente</h3>
+                            <h3 class="event-title">🥩 Costelada Rotary</h3>
                             <div class="event-date">
                                 <i class="fas fa-calendar"></i>
-                                15/12/2024 - 19h30
+                                15/12/2024 - 12h00
                             </div>
                         </div>
                         <span class="event-status status-active">Vendas Abertas</span>
                     </div>
+                    <div style="margin: 1rem 0; padding: 0.8rem; background: #f8f9fa; border-radius: 6px;">
+                        <strong>📍 Local:</strong> Roda d'Água<br>
+                        <strong>💰 Valores:</strong> Inteira R$ 100,00 • Meia (5-12 anos) R$ 50,00
+                    </div>
                     <div class="event-stats">
                         <div class="event-stat">
-                            <div class="event-stat-value">234</div>
+                            <div class="event-stat-value">187</div>
                             <div class="event-stat-label">Vendidos</div>
                         </div>
                         <div class="event-stat">
-                            <div class="event-stat-value">66</div>
+                            <div class="event-stat-value">113</div>
                             <div class="event-stat-label">Disponíveis</div>
                         </div>
                         <div class="event-stat">
-                            <div class="event-stat-value">R$ 35.100</div>
+                            <div class="event-stat-value">R$ 17.350</div>
                             <div class="event-stat-label">Arrecadado</div>
                         </div>
                         <div class="event-stat">
-                            <div class="event-stat-value">78%</div>
+                            <div class="event-stat-value">62%</div>
                             <div class="event-stat-label">Ocupação</div>
                         </div>
                     </div>
@@ -796,29 +819,33 @@
                 <div class="event-card">
                     <div class="event-header">
                         <div>
-                            <h3 class="event-title">Palestra Motivacional</h3>
+                            <h3 class="event-title">🐷 Porco no Rolete</h3>
                             <div class="event-date">
                                 <i class="fas fa-calendar"></i>
-                                22/12/2024 - 14h00
+                                22/12/2024 - 11h30
                             </div>
                         </div>
                         <span class="event-status status-planning">Planejamento</span>
                     </div>
+                    <div style="margin: 1rem 0; padding: 0.8rem; background: #f8f9fa; border-radius: 6px;">
+                        <strong>📍 Local:</strong> Roda d'Água<br>
+                        <strong>💰 Valores:</strong> Inteira R$ 70,00 • Meia (5-12 anos) R$ 35,00
+                    </div>
                     <div class="event-stats">
                         <div class="event-stat">
-                            <div class="event-stat-value">113</div>
+                            <div class="event-stat-value">78</div>
                             <div class="event-stat-label">Vendidos</div>
                         </div>
                         <div class="event-stat">
-                            <div class="event-stat-value">87</div>
+                            <div class="event-stat-value">222</div>
                             <div class="event-stat-label">Disponíveis</div>
                         </div>
                         <div class="event-stat">
-                            <div class="event-stat-value">R$ 16.950</div>
+                            <div class="event-stat-value">R$ 5.180</div>
                             <div class="event-stat-label">Arrecadado</div>
                         </div>
                         <div class="event-stat">
-                            <div class="event-stat-value">57%</div>
+                            <div class="event-stat-value">26%</div>
                             <div class="event-stat-label">Ocupação</div>
                         </div>
                     </div>
@@ -856,13 +883,13 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <strong>Jantar Beneficente</strong><br>
-                                    <small>Em prol da Casa de Apoio</small>
+                                    <strong>🥩 Costelada Rotary</strong><br>
+                                    <small>Tradicional almoço do clube</small>
                                 </td>
-                                <td>15/12/2024<br>19h30</td>
-                                <td>Buffet Villa Itaquá</td>
+                                <td>15/12/2024<br>12h00</td>
+                                <td>Roda d'Água</td>
                                 <td>300</td>
-                                <td>234</td>
+                                <td>187</td>
                                 <td><span class="badge badge-success">Ativo</span></td>
                                 <td>
                                     <button class="btn btn-outline" onclick="showModal('eventDetails')">
@@ -872,13 +899,13 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <strong>Palestra Motivacional</strong><br>
-                                    <small>Dr. João Silva</small>
+                                    <strong>🐷 Porco no Rolete</strong><br>
+                                    <small>Evento gastronômico especial</small>
                                 </td>
-                                <td>22/12/2024<br>14h00</td>
-                                <td>Auditório Central</td>
-                                <td>200</td>
-                                <td>113</td>
+                                <td>22/12/2024<br>11h30</td>
+                                <td>Roda d'Água</td>
+                                <td>300</td>
+                                <td>78</td>
                                 <td><span class="badge badge-warning">Planejamento</span></td>
                                 <td>
                                     <button class="btn btn-outline" onclick="showModal('eventDetails')">
@@ -919,17 +946,17 @@
                         <i class="fas fa-print stat-icon"></i>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value">197</div>
+                        <div class="stat-value">115</div>
                         <div class="stat-label">Convites Digitais</div>
                         <i class="fas fa-mobile-alt stat-icon"></i>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value">327</div>
+                        <div class="stat-value">236</div>
                         <div class="stat-label">Check-ins Realizados</div>
                         <i class="fas fa-qrcode stat-icon"></i>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value">20</div>
+                        <div class="stat-value">29</div>
                         <div class="stat-label">Não Compareceram</div>
                         <i class="fas fa-user-times stat-icon"></i>
                     </div>
@@ -940,6 +967,7 @@
                         <thead>
                             <tr>
                                 <th>Código</th>
+                                <th>Evento</th>
                                 <th>Tipo</th>
                                 <th>Companheiro</th>
                                 <th>Cliente</th>
@@ -951,21 +979,33 @@
                         <tbody>
                             <tr>
                                 <td><strong>F147</strong></td>
+                                <td>Costelada</td>
                                 <td><span class="badge badge-primary">Físico</span></td>
                                 <td>João Silva</td>
                                 <td>Maria Santos</td>
-                                <td>R$ 150,00</td>
+                                <td>R$ 100,00</td>
                                 <td><span class="badge badge-success">Pago</span></td>
-                                <td><i class="fas fa-check text-success"></i> 19:25</td>
+                                <td><i class="fas fa-check" style="color: var(--success);"></i> 11:45</td>
                             </tr>
                             <tr>
                                 <td><strong>D089</strong></td>
+                                <td>Porco Rolete</td>
                                 <td><span class="badge badge-warning">Digital</span></td>
                                 <td>Ana Costa</td>
                                 <td>Pedro Oliveira</td>
-                                <td>R$ 150,00</td>
+                                <td>R$ 70,00</td>
                                 <td><span class="badge badge-success">Pago</span></td>
-                                <td><i class="fas fa-times text-danger"></i> -</td>
+                                <td><i class="fas fa-times" style="color: var(--danger);"></i> -</td>
+                            </tr>
+                            <tr>
+                                <td><strong>F203</strong></td>
+                                <td>Costelada</td>
+                                <td><span class="badge badge-primary">Físico</span></td>
+                                <td>Carlos Santos</td>
+                                <td>Ana Souza (Meia)</td>
+                                <td>R$ 50,00</td>
+                                <td><span class="badge badge-success">Pago</span></td>
+                                <td><i class="fas fa-check" style="color: var(--success);"></i> 12:10</td>
                             </tr>
                         </tbody>
                     </table>
@@ -989,22 +1029,22 @@
 
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <div class="stat-value">R$ 52.050</div>
+                        <div class="stat-value">R$ 22.530</div>
                         <div class="stat-label">Faturamento Total</div>
                         <i class="fas fa-coins stat-icon"></i>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value">R$ 35.100</div>
+                        <div class="stat-value">R$ 14.280</div>
                         <div class="stat-label">PIX Recebido</div>
                         <i class="fas fa-mobile-alt stat-icon"></i>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value">R$ 16.950</div>
+                        <div class="stat-value">R$ 8.250</div>
                         <div class="stat-label">Cartão Recebido</div>
                         <i class="fas fa-credit-card stat-icon"></i>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value">R$ 138,60</div>
+                        <div class="stat-value">R$ 387,80</div>
                         <div class="stat-label">Taxas Bancárias</div>
                         <i class="fas fa-percentage stat-icon"></i>
                     </div>
@@ -1013,8 +1053,8 @@
                 <div class="chart-container">
                     <div style="text-align: center; color: var(--text-secondary);">
                         <i class="fas fa-chart-bar" style="font-size: 3rem; margin-bottom: 1rem; display: block;"></i>
-                        <p>Gráfico de Vendas por Período</p>
-                        <small>Dados em tempo real</small>
+                        <p>Gráfico de Vendas por Evento</p>
+                        <small>Costelada: R$ 17.350 • Porco Rolete: R$ 5.180</small>
                     </div>
                 </div>
 
@@ -1034,24 +1074,31 @@
                             <tbody>
                                 <tr>
                                     <td><strong>João Silva</strong></td>
-                                    <td>47</td>
-                                    <td>R$ 7.050,00</td>
-                                    <td>R$ 352,50</td>
-                                    <td>78% <span class="badge badge-success">Meta atingida</span></td>
+                                    <td>52 (34 Costelada + 18 Porco)</td>
+                                    <td>R$ 4.660,00</td>
+                                    <td>R$ 233,00</td>
+                                    <td>87% <span class="badge badge-success">Meta atingida</span></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Ana Costa</strong></td>
-                                    <td>38</td>
-                                    <td>R$ 5.700,00</td>
-                                    <td>R$ 285,00</td>
-                                    <td>63% <span class="badge badge-warning">Em progresso</span></td>
+                                    <td>41 (28 Costelada + 13 Porco)</td>
+                                    <td>R$ 3.710,00</td>
+                                    <td>R$ 185,50</td>
+                                    <td>68% <span class="badge badge-warning">Em progresso</span></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Carlos Santos</strong></td>
-                                    <td>52</td>
-                                    <td>R$ 7.800,00</td>
-                                    <td>R$ 390,00</td>
-                                    <td>87% <span class="badge badge-success">Meta atingida</span></td>
+                                    <td>59 (38 Costelada + 21 Porco)</td>
+                                    <td>R$ 5.270,00</td>
+                                    <td>R$ 263,50</td>
+                                    <td>98% <span class="badge badge-success">Meta atingida</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Maria Oliveira</strong></td>
+                                    <td>35 (22 Costelada + 13 Porco)</td>
+                                    <td>R$ 3.110,00</td>
+                                    <td>R$ 155,50</td>
+                                    <td>58% <span class="badge badge-warning">Em progresso</span></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -1098,7 +1145,7 @@
                                 <td>joao.silva@email.com</td>
                                 <td>(11) 99999-1234</td>
                                 <td>60 convites</td>
-                                <td>47 vendidos</td>
+                                <td>52 vendidos</td>
                                 <td><span class="badge badge-success">Ativo</span></td>
                                 <td>
                                     <button class="btn btn-outline">
@@ -1116,7 +1163,25 @@
                                 <td>ana.costa@email.com</td>
                                 <td>(11) 98888-5678</td>
                                 <td>60 convites</td>
-                                <td>38 vendidos</td>
+                                <td>41 vendidos</td>
+                                <td><span class="badge badge-success">Ativo</span></td>
+                                <td>
+                                    <button class="btn btn-outline">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <div class="user-avatar" style="width: 32px; height: 32px; font-size: 0.8rem;">CS</div>
+                                        <strong>Carlos Santos</strong>
+                                    </div>
+                                </td>
+                                <td>carlos.santos@email.com</td>
+                                <td>(11) 97777-9012</td>
+                                <td>60 convites</td>
+                                <td>59 vendidos</td>
                                 <td><span class="badge badge-success">Ativo</span></td>
                                 <td>
                                     <button class="btn btn-outline">
@@ -1126,6 +1191,364 @@
                             </tr>
                         </tbody>
                     </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- How It Works Tab -->
+        <div id="how-it-works" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <i class="fas fa-info-circle"></i>
+                        Como Funciona o Sistema de Gestão
+                    </h2>
+                </div>
+
+                <div class="alert alert-success">
+                    <i class="fas fa-rocket"></i>
+                    <strong>Sistema em Piloto Gratuito!</strong> Durante os primeiros 3 meses, você paga apenas as taxas bancárias (PIX R$ 0,40 por transação).
+                </div>
+
+                <!-- Modelos de Venda -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 3rem;">
+                    <div class="card" style="margin: 0; border-left: 4px solid var(--rotary-blue);">
+                        <h3 style="color: var(--rotary-blue); display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-print"></i>
+                            Convites Físicos
+                        </h3>
+                        <div style="margin: 1rem 0;">
+                            <p><strong>Códigos:</strong> F001 até F500</p>
+                            <p><strong>Como Funciona:</strong></p>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.5rem;">
+                                <li>Alessandro distribui quotas para companheiros</li>
+                                <li>Companheiros vendem presencialmente</li>
+                                <li>Cliente paga em dinheiro, PIX ou cartão</li>
+                                <li>Sistema registra a venda instantaneamente</li>
+                                <li>QR Code único é impresso no convite</li>
+                            </ul>
+                        </div>
+                        <div class="highlight-box">
+                            <h4 style="color: var(--rotary-blue); margin-bottom: 0.5rem;">
+                                <i class="fas fa-handshake"></i>
+                                Vantagens
+                            </h4>
+                            <ul style="margin: 0; padding-left: 1.5rem;">
+                                <li>Mantém tradição e relacionamento pessoal</li>
+                                <li>Controle rigoroso de numeração</li>
+                                <li>Pode ser presenteado fisicamente</li>
+                                <li>Zero risco de inadimplência na portaria</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin: 0; border-left: 4px solid var(--rotary-gold);">
+                        <h3 style="color: var(--rotary-gold); display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-mobile-alt"></i>
+                            Convites Digitais
+                        </h3>
+                        <div style="margin: 1rem 0;">
+                            <p><strong>Códigos:</strong> D001 até D500</p>
+                            <p><strong>Como Funciona:</strong></p>
+                            <ul style="margin: 0.5rem 0; padding-left: 1.5rem;">
+                                <li>Link único gerado automaticamente</li>
+                                <li>Compartilhamento via WhatsApp/Email/Redes</li>
+                                <li>Cliente acessa, paga e recebe QR Code</li>
+                                <li>Pagamento processado instantaneamente</li>
+                                <li>QR Code direto no celular do cliente</li>
+                            </ul>
+                        </div>
+                        <div class="highlight-box">
+                            <h4 style="color: var(--rotary-gold); margin-bottom: 0.5rem;">
+                                <i class="fas fa-rocket"></i>
+                                Vantagens
+                            </h4>
+                            <ul style="margin: 0; padding-left: 1.5rem;">
+                                <li>Venda 24/7 sem intermediários</li>
+                                <li>Alcance ilimitado via redes sociais</li>
+                                <li>Zero inadimplência (pago = liberado)</li>
+                                <li>Rastreamento completo de origem da venda</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gestão de Taxas e Integração -->
+                <div class="card">
+                    <h3 style="color: var(--rotary-blue); margin-bottom: 1.5rem;">
+                        <i class="fas fa-cogs"></i>
+                        Gestão Automática de Taxas e Integração
+                    </h3>
+
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i>
+                        <strong>Integração Transparente:</strong> O sistema gerencia automaticamente todas as taxas e repasses, você recebe o valor líquido direto na conta do clube.
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Forma de Pagamento</th>
+                                    <th>Taxa da Operadora</th>
+                                    <th>Como o Sistema Gerencia</th>
+                                    <th>Exemplo (R$ 100)</th>
+                                    <th>Repasse ao Clube</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="background: rgba(40, 167, 69, 0.05);">
+                                    <td>
+                                        <i class="fas fa-mobile-alt" style="color: var(--interact-blue);"></i>
+                                        <strong>PIX</strong>
+                                    </td>
+                                    <td>R$ 0,40 por transação</td>
+                                    <td>
+                                        <ul style="margin: 0; padding-left: 1rem;">
+                                            <li>Integração direta com banco</li>
+                                            <li>Confirmação instantânea</li>
+                                            <li>Repasse automático em 1 dia útil</li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        Cliente paga: <strong>R$ 100,00</strong><br>
+                                        Taxa: <strong>R$ 0,40</strong>
+                                    </td>
+                                    <td style="color: var(--success); font-weight: bold;">R$ 99,60</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <i class="fas fa-credit-card" style="color: var(--rotary-gold);"></i>
+                                        <strong>Cartão Crédito</strong>
+                                    </td>
+                                    <td>3,99% + R$ 0,39</td>
+                                    <td>
+                                        <ul style="margin: 0; padding-left: 1rem;">
+                                            <li>Integração PagSeguro/Mercado Pago</li>
+                                            <li>Antifraude automático</li>
+                                            <li>Repasse em 30 dias</li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        Cliente paga: <strong>R$ 100,00</strong><br>
+                                        Taxa: <strong>R$ 4,38</strong>
+                                    </td>
+                                    <td style="color: var(--warning); font-weight: bold;">R$ 95,62</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <i class="fas fa-credit-card" style="color: var(--warning);"></i>
+                                        <strong>Cartão Débito</strong>
+                                    </td>
+                                    <td>2,99% + R$ 0,39</td>
+                                    <td>
+                                        <ul style="margin: 0; padding-left: 1rem;">
+                                            <li>Processamento instantâneo</li>
+                                            <li>Menor taxa que crédito</li>
+                                            <li>Repasse em 2 dias úteis</li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        Cliente paga: <strong>R$ 100,00</strong><br>
+                                        Taxa: <strong>R$ 3,38</strong>
+                                    </td>
+                                    <td style="color: var(--success); font-weight: bold;">R$ 96,62</td>
+                                </tr>
+                                <tr style="background: rgba(23, 69, 143, 0.05);">
+                                    <td>
+                                        <i class="fas fa-money-bill" style="color: var(--success);"></i>
+                                        <strong>Dinheiro (Físico)</strong>
+                                    </td>
+                                    <td>R$ 0,00</td>
+                                    <td>
+                                        <ul style="margin: 0; padding-left: 1rem;">
+                                            <li>Registro manual no sistema</li>
+                                            <li>Comprovante digital gerado</li>
+                                            <li>Controle de caixa integrado</li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        Cliente paga: <strong>R$ 100,00</strong><br>
+                                        Taxa: <strong>R$ 0,00</strong>
+                                    </td>
+                                    <td style="color: var(--success); font-weight: bold;">R$ 100,00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="highlight-box">
+                        <h4 style="color: var(--rotary-blue); margin-bottom: 1rem;">
+                            <i class="fas fa-shield-alt"></i>
+                            Proteções do Sistema
+                        </h4>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+                            <div>
+                                <h5 style="color: var(--success); margin-bottom: 0.5rem;">
+                                    <i class="fas fa-lock"></i> Segurança Financeira
+                                </h5>
+                                <ul style="margin: 0; padding-left: 1rem; font-size: 0.9rem;">
+                                    <li>Chaves PIX exclusivas do clube</li>
+                                    <li>Conta bancária própria</li>
+                                    <li>Certificados SSL para cartões</li>
+                                    <li>Auditoria completa de transações</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h5 style="color: var(--rotary-gold); margin-bottom: 0.5rem;">
+                                    <i class="fas fa-chart-line"></i> Transparência Total
+                                </h5>
+                                <ul style="margin: 0; padding-left: 1rem; font-size: 0.9rem;">
+                                    <li>Dashboard em tempo real</li>
+                                    <li>Relatórios detalhados de taxas</li>
+                                    <li>Conciliação bancária automática</li>
+                                    <li>Histórico completo de transações</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fluxo de Integração -->
+                <div class="card">
+                    <h3 style="color: var(--rotary-blue); margin-bottom: 1.5rem;">
+                        <i class="fas fa-sitemap"></i>
+                        Fluxo de Integração Financeira
+                    </h3>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+                        <div style="text-align: center; padding: 1.5rem; background: var(--surface); border-radius: 12px; position: relative;">
+                            <div style="width: 60px; height: 60px; background: var(--rotary-blue); border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; font-weight: bold;">1</div>
+                            <h4 style="color: var(--rotary-blue);">Cliente Paga</h4>
+                            <p style="margin: 0.5rem 0 0;">PIX, cartão ou dinheiro. Sistema valida pagamento em tempo real</p>
+                        </div>
+
+                        <div style="text-align: center; padding: 1.5rem; background: var(--surface); border-radius: 12px;">
+                            <div style="width: 60px; height: 60px; background: var(--rotary-gold); border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; font-weight: bold;">2</div>
+                            <h4 style="color: var(--rotary-gold);">Sistema Calcula</h4>
+                            <p style="margin: 0.5rem 0 0;">Deduz automaticamente as taxas bancárias do valor bruto recebido</p>
+                        </div>
+
+                        <div style="text-align: center; padding: 1.5rem; background: var(--surface); border-radius: 12px;">
+                            <div style="width: 60px; height: 60px; background: var(--success); border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; font-weight: bold;">3</div>
+                            <h4 style="color: var(--success);">Libera Convite</h4>
+                            <p style="margin: 0.5rem 0 0;">Gera QR Code único e disponibiliza convite para o cliente</p>
+                        </div>
+
+                        <div style="text-align: center; padding: 1.5rem; background: var(--surface); border-radius: 12px;">
+                            <div style="width: 60px; height: 60px; background: var(--interact-blue); border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; font-weight: bold;">4</div>
+                            <h4 style="color: var(--interact-blue);">Repasse ao Clube</h4>
+                            <p style="margin: 0.5rem 0 0;">Valor líquido transferido automaticamente para conta do clube</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Comparativo de Custos REAL -->
+                <div class="card">
+                    <h3 style="color: var(--rotary-blue); margin-bottom: 1rem;">
+                        <i class="fas fa-calculator"></i>
+                        Comparativo: Sistema Atual vs Manual
+                    </h3>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                        <div style="padding: 1.5rem; background: #f8d7da; border-radius: 12px; border-left: 4px solid var(--danger);">
+                            <h4 style="color: var(--danger); margin-bottom: 1rem;">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                Sistema Manual (Atual)
+                            </h4>
+                            <ul style="color: #721c24; margin: 0; padding-left: 1.5rem;">
+                                <li><strong>Inadimplência:</strong> ~15% dos convites</li>
+                                <li><strong>Tempo perdido:</strong> Cobrança e controle manual</li>
+                                <li><strong>Erro humano:</strong> Conciliação manual difícil</li>
+                                <li><strong>Perda de receita:</strong> R$ 3.000+ por evento</li>
+                                <li><strong>Stress na portaria:</strong> Filas e discussões</li>
+                            </ul>
+                        </div>
+
+                        <div style="padding: 1.5rem; background: #d4edda; border-radius: 12px; border-left: 4px solid var(--success);">
+                            <h4 style="color: var(--success); margin-bottom: 1rem;">
+                                <i class="fas fa-check-circle"></i>
+                                Sistema Automatizado
+                            </h4>
+                            <ul style="color: #155724; margin: 0; padding-left: 1.5rem;">
+                                <li><strong>Zero inadimplência:</strong> Só libera se pago</li>
+                                <li><strong>Gestão automática:</strong> Tudo controlado pelo sistema</li>
+                                <li><strong>Precisão 100%:</strong> Conciliação automática</li>
+                                <li><strong>Receita garantida:</strong> Todo convite é receita</li>
+                                <li><strong>Check-in rápido:</strong> 5 segundos por pessoa</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="highlight-box">
+                        <h4 style="color: var(--rotary-blue); margin-bottom: 1rem;">
+                            <i class="fas fa-calculator"></i>
+                            Exemplo Prático: Evento Costelada (300 convites × R$ 100)
+                        </h4>
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Cenário</th>
+                                        <th>Vendidos</th>
+                                        <th>Inadimplência</th>
+                                        <th>Taxas</th>
+                                        <th>Receita Líquida</th>
+                                        <th>Economia</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="background: #f8d7da;">
+                                        <td><strong>Manual (Atual)</strong></td>
+                                        <td>280 vendidos</td>
+                                        <td>- R$ 4.200 (15%)</td>
+                                        <td>R$ 0</td>
+                                        <td style="color: var(--danger); font-weight: bold;">R$ 23.800</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr style="background: #d4edda;">
+                                        <td><strong>Sistema (Novo)</strong></td>
+                                        <td>300 vendidos</td>
+                                        <td>R$ 0 (0%)</td>
+                                        <td>- R$ 387 (mix pagamentos)</td>
+                                        <td style="color: var(--success); font-weight: bold;">R$ 29.613</td>
+                                        <td style="color: var(--success); font-weight: bold;">+ R$ 5.813</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Suporte e Implementação -->
+                <div class="card" style="background: linear-gradient(135deg, var(--rotary-blue) 0%, var(--rotary-blue-mono) 100%); color: white;">
+                    <h3 style="color: white; margin-bottom: 1rem;">
+                        <i class="fas fa-headset"></i>
+                        Suporte Completo Durante o Piloto
+                    </h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+                        <div>
+                            <h4><i class="fas fa-graduation-cap"></i> Treinamento Completo</h4>
+                            <p style="opacity: 0.9; margin: 0;">Capacitação para Alessandro e todos os companheiros</p>
+                        </div>
+                        <div>
+                            <h4><i class="fas fa-tools"></i> Setup Personalizado</h4>
+                            <p style="opacity: 0.9; margin: 0;">Configuração das contas bancárias e integrações</p>
+                        </div>
+                        <div>
+                            <h4><i class="fas fa-phone"></i> Suporte 24/7</h4>
+                            <p style="opacity: 0.9; margin: 0;">Atendimento durante todos os eventos</p>
+                        </div>
+                        <div>
+                            <h4><i class="fas fa-sync-alt"></i> Melhorias Contínuas</h4>
+                            <p style="opacity: 0.9; margin: 0;">Atualizações baseadas no feedback do clube</p>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-warning" style="margin-top: 2rem; background: rgba(255, 255, 255, 0.1); border-color: var(--rotary-gold); color: white;">
+                        <i class="fas fa-handshake"></i>
+                        <strong>Compromisso:</strong> Após os 3 meses de piloto, definiremos juntos o modelo comercial baseado nos resultados obtidos e valor entregue ao clube.
+                    </div>
                 </div>
             </div>
         </div>
@@ -1144,7 +1567,7 @@
                     <div class="card" style="text-align: center; cursor: pointer;" onclick="showModal('financialReport')">
                         <i class="fas fa-chart-pie" style="font-size: 3rem; color: var(--rotary-blue); margin-bottom: 1rem;"></i>
                         <h3>Relatório Financeiro</h3>
-                        <p>Receitas, despesas e lucro líquido</p>
+                        <p>Receitas por forma de pagamento, taxas e líquido por evento</p>
                         <button class="btn btn-primary" style="margin-top: 1rem;">
                             <i class="fas fa-download"></i>
                             Gerar Relatório
@@ -1154,7 +1577,7 @@
                     <div class="card" style="text-align: center; cursor: pointer;" onclick="showModal('attendanceReport')">
                         <i class="fas fa-users" style="font-size: 3rem; color: var(--rotary-gold); margin-bottom: 1rem;"></i>
                         <h3>Relatório de Presença</h3>
-                        <p>Check-ins e lista de presença</p>
+                        <p>Check-ins realizados, lista de presença e ausências</p>
                         <button class="btn btn-secondary" style="margin-top: 1rem;">
                             <i class="fas fa-download"></i>
                             Gerar Relatório
@@ -1163,8 +1586,8 @@
 
                     <div class="card" style="text-align: center; cursor: pointer;" onclick="showModal('salesAnalysis')">
                         <i class="fas fa-chart-line" style="font-size: 3rem; color: var(--interact-blue); margin-bottom: 1rem;"></i>
-                        <h3>Análise de Vendas</h3>
-                        <p>Performance por companheiro</p>
+                        <h3>Performance de Vendas</h3>
+                        <p>Vendas por companheiro, metas e comissões</p>
                         <button class="btn btn-outline" style="margin-top: 1rem;">
                             <i class="fas fa-download"></i>
                             Gerar Relatório
@@ -1173,8 +1596,8 @@
 
                     <div class="card" style="text-align: center; cursor: pointer;" onclick="showModal('eventSummary')">
                         <i class="fas fa-calendar-check" style="font-size: 3rem; color: var(--success); margin-bottom: 1rem;"></i>
-                        <h3>Resumo do Evento</h3>
-                        <p>Estatísticas completas do evento</p>
+                        <h3>Resumo Completo</h3>
+                        <p>Análise completa do evento com todos os indicadores</p>
                         <button class="btn btn-primary" style="margin-top: 1rem;">
                             <i class="fas fa-download"></i>
                             Gerar Relatório
@@ -1197,7 +1620,7 @@
             <form>
                 <div class="form-group">
                     <label class="form-label">Nome do Evento</label>
-                    <input type="text" class="form-control" placeholder="Ex: Jantar Beneficente">
+                    <input type="text" class="form-control" placeholder="Ex: Costelada Rotary">
                 </div>
                 <div class="form-group">
                     <label class="form-label">Data e Hora</label>
@@ -1205,15 +1628,21 @@
                 </div>
                 <div class="form-group">
                     <label class="form-label">Local</label>
-                    <input type="text" class="form-control" placeholder="Ex: Buffet Villa Itaquá">
+                    <input type="text" class="form-control" placeholder="Ex: Roda d'Água" value="Roda d'Água">
                 </div>
                 <div class="form-group">
                     <label class="form-label">Capacidade Máxima</label>
-                    <input type="number" class="form-control" placeholder="300">
+                    <input type="number" class="form-control" placeholder="300" value="300">
                 </div>
-                <div class="form-group">
-                    <label class="form-label">Valor do Convite (R$)</label>
-                    <input type="number" step="0.01" class="form-control" placeholder="150.00">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label class="form-label">Valor Inteira (R$)</label>
+                        <input type="number" step="0.01" class="form-control" placeholder="100.00">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Valor Meia 5-12 anos (R$)</label>
+                        <input type="number" step="0.01" class="form-control" placeholder="50.00">
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Descrição</label>
@@ -1241,18 +1670,18 @@
             <div style="border: 3px solid var(--rotary-blue); border-radius: 12px; padding: 2rem; background: white; margin: 1rem 0;">
                 <div style="text-align: center; margin-bottom: 1.5rem;">
                     <div class="logo" style="margin: 0 auto 1rem;">ROTARY<br>ITAQUÁ<br>4563</div>
-                    <h3 style="color: var(--rotary-blue); margin-bottom: 0.5rem;">JANTAR BENEFICENTE</h3>
-                    <p style="color: var(--text-secondary);">Em prol da Casa de Apoio</p>
+                    <h3 style="color: var(--rotary-blue); margin-bottom: 0.5rem;">🥩 COSTELADA ROTARY</h3>
+                    <p style="color: var(--text-secondary);">Tradicional almoço do clube</p>
                 </div>
                 
                 <div style="text-align: center; margin: 1.5rem 0;">
                     <div style="background: var(--surface); padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
                         <i class="fas fa-calendar" style="color: var(--rotary-blue);"></i>
-                        <strong>15/12/2024 - 19h30</strong>
+                        <strong>15/12/2024 - 12h00</strong>
                     </div>
                     <div style="background: var(--surface); padding: 1rem; border-radius: 8px;">
                         <i class="fas fa-map-marker-alt" style="color: var(--rotary-gold);"></i>
-                        <strong>Buffet Villa Itaquá</strong>
+                        <strong>Roda d'Água</strong>
                     </div>
                 </div>
 
@@ -1262,7 +1691,8 @@
 
                 <div style="text-align: center; margin-top: 1rem; padding: 1rem; background: var(--rotary-gold); color: white; border-radius: 8px;">
                     <strong>Convite: F147</strong><br>
-                    <strong>Valor: R$ 150,00</strong>
+                    <strong>Valor: R$ 100,00</strong><br>
+                    <small>Meia-entrada (5-12 anos): R$ 50,00</small>
                 </div>
             </div>
 
@@ -1290,27 +1720,27 @@
 
             <div class="alert alert-success">
                 <i class="fas fa-check-circle"></i>
-                <strong>Meta de vendas atingida!</strong> O evento já arrecadou 78% da capacidade total.
+                <strong>Eventos performando bem!</strong> Costelada com 62% de ocupação e Porco no Rolete começando as vendas.
             </div>
 
             <div class="stats-grid">
                 <div class="stat-card" style="background: linear-gradient(135deg, var(--success) 0%, #20c997 100%);">
-                    <div class="stat-value">234</div>
-                    <div class="stat-label">Convites Vendidos</div>
+                    <div class="stat-value">187</div>
+                    <div class="stat-label">Costelada Vendidos</div>
                     <i class="fas fa-ticket-alt stat-icon"></i>
                 </div>
                 <div class="stat-card" style="background: linear-gradient(135deg, var(--rotary-gold) 0%, #e6971a 100%);">
-                    <div class="stat-value">R$ 35.100</div>
-                    <div class="stat-label">Receita Bruta</div>
-                    <i class="fas fa-coins stat-icon"></i>
+                    <div class="stat-value">78</div>
+                    <div class="stat-label">Porco Rolete Vendidos</div>
+                    <i class="fas fa-ticket-alt stat-icon"></i>
                 </div>
             </div>
 
             <div class="chart-container" style="height: 250px;">
                 <div style="text-align: center; color: var(--text-secondary);">
                     <i class="fas fa-chart-area" style="font-size: 2.5rem; margin-bottom: 1rem; display: block;"></i>
-                    <p><strong>Evolução das Vendas</strong></p>
-                    <small>Vendas por semana nos últimos 30 dias</small>
+                    <p><strong>Vendas por Evento</strong></p>
+                    <small>Costelada: R$ 17.350 • Porco no Rolete: R$ 5.180</small>
                 </div>
             </div>
 
@@ -1318,30 +1748,79 @@
                 <table>
                     <thead>
                         <tr>
+                            <th>Evento</th>
                             <th>Forma de Pagamento</th>
                             <th>Quantidade</th>
-                            <th>Valor Total</th>
-                            <th>Taxa</th>
-                            <th>Líquido</th>
+                            <th>Valor Bruto</th>
+                            <th>Taxas</th>
+                            <th>Valor Líquido</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
+                            <td rowspan="3"><strong>🥩 Costelada</strong></td>
                             <td><i class="fas fa-mobile-alt" style="color: var(--interact-blue);"></i> PIX</td>
-                            <td>156</td>
-                            <td>R$ 23.400,00</td>
-                            <td>R$ 62,40</td>
-                            <td>R$ 23.337,60</td>
+                            <td>98</td>
+                            <td>R$ 9.150,00</td>
+                            <td>R$ 39,20</td>
+                            <td>R$ 9.110,80</td>
                         </tr>
                         <tr>
                             <td><i class="fas fa-credit-card" style="color: var(--rotary-gold);"></i> Cartão</td>
-                            <td>78</td>
-                            <td>R$ 11.700,00</td>
-                            <td>R$ 351,00</td>
-                            <td>R$ 11.349,00</td>
+                            <td>67</td>
+                            <td>R$ 6.200,00</td>
+                            <td>R$ 269,49</td>
+                            <td>R$ 5.930,51</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fas fa-money-bill" style="color: var(--success);"></i> Dinheiro</td>
+                            <td>22</td>
+                            <td>R$ 2.000,00</td>
+                            <td>R$ 0,00</td>
+                            <td>R$ 2.000,00</td>
+                        </tr>
+                        <tr style="background: var(--surface);">
+                            <td rowspan="2"><strong>🐷 Porco Rolete</strong></td>
+                            <td><i class="fas fa-mobile-alt" style="color: var(--interact-blue);"></i> PIX</td>
+                            <td>45</td>
+                            <td>R$ 3.150,00</td>
+                            <td>R$ 18,00</td>
+                            <td>R$ 3.132,00</td>
+                        </tr>
+                        <tr style="background: var(--surface);">
+                            <td><i class="fas fa-credit-card" style="color: var(--rotary-gold);"></i> Cartão</td>
+                            <td>33</td>
+                            <td>R$ 2.030,00</td>
+                            <td>R$ 94,07</td>
+                            <td>R$ 1.935,93</td>
                         </tr>
                     </tbody>
                 </table>
+            </div>
+
+            <div class="highlight-box">
+                <h4 style="color: var(--rotary-blue); margin-bottom: 1rem;">
+                    <i class="fas fa-calculator"></i>
+                    Resumo Consolidado
+                </h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                    <div style="text-align: center;">
+                        <strong style="color: var(--success);">Faturamento Total</strong><br>
+                        <span style="font-size: 1.5rem; color: var(--rotary-blue);">R$ 22.530,00</span>
+                    </div>
+                    <div style="text-align: center;">
+                        <strong style="color: var(--danger);">Total de Taxas</strong><br>
+                        <span style="font-size: 1.5rem; color: var(--danger);">R$ 420,76</span>
+                    </div>
+                    <div style="text-align: center;">
+                        <strong style="color: var(--success);">Receita Líquida</strong><br>
+                        <span style="font-size: 1.5rem; color: var(--success);">R$ 22.109,24</span>
+                    </div>
+                    <div style="text-align: center;">
+                        <strong style="color: var(--rotary-blue);">Taxa Média</strong><br>
+                        <span style="font-size: 1.5rem; color: var(--rotary-blue);">1,87%</span>
+                    </div>
+                </div>
             </div>
 
             <div style="display: flex; gap: 1rem; margin-top: 2rem;">
@@ -1368,10 +1847,11 @@
 
             <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; margin-bottom: 2rem;">
                 <div>
-                    <h3 style="color: var(--rotary-blue); margin-bottom: 1rem;">Costelada Rotary</h3>
+                    <h3 style="color: var(--rotary-blue); margin-bottom: 1rem;">🥩 Costelada Rotary</h3>
                     <p><strong>Data:</strong> 15/12/2024 às 12h00</p>
-                    <p><strong>Local:</strong> Chácara do Clube</p>
-                    <p><strong>Descrição:</strong> Tradicional almoço do clube com costelada, acompanhamentos e ambiente familiar. Valores: R$ 100 (inteira) e R$ 50 (meia para 5-12 anos).</p>
+                    <p><strong>Local:</strong> Roda d'Água</p>
+                    <p><strong>Descrição:</strong> Tradicional almoço do clube com costelada no rolete, acompanhamentos regionais e ambiente familiar. Valores diferenciados para crianças de 5-12 anos.</p>
+                    <p><strong>Valores:</strong> Inteira R$ 100,00 • Meia (5-12 anos) R$ 50,00</p>
                 </div>
                 <div>
                     <div class="card" style="text-align: center; margin: 0;">
@@ -1397,7 +1877,7 @@
                     <div class="stat-label">Arrecadado</div>
                 </div>
                 <div class="stat-card" style="background: linear-gradient(135deg, var(--interact-blue) 0%, #0087c7 100%);">
-                    <div class="stat-value">176</div>
+                    <div class="stat-value">166</div>
                     <div class="stat-label">Check-ins</div>
                 </div>
             </div>
@@ -1463,10 +1943,8 @@
 
         // Simulate real-time updates
         function updateStats() {
-            // This would normally connect to your backend API
-            console.log('Updating real-time statistics...');
+            console.log('Atualizando estatísticas em tempo real...');
             
-            // Example of updating a stat value
             setTimeout(() => {
                 const checkInRate = document.querySelector('.stat-card:last-child .stat-value');
                 if (checkInRate && Math.random() > 0.7) {
@@ -1482,12 +1960,11 @@
             
             // Start real-time updates
             updateStats();
-            setInterval(updateStats, 30000); // Update every 30 seconds
+            setInterval(updateStats, 30000);
             
-            // Add some interactive feedback
+            // Add interactive feedback to buttons
             document.querySelectorAll('.btn').forEach(btn => {
                 btn.addEventListener('click', function() {
-                    // Add loading state
                     if (!this.classList.contains('btn-outline')) {
                         const originalText = this.innerHTML;
                         this.innerHTML = '<div class="loading"></div> Processando...';
@@ -1502,7 +1979,7 @@
             });
         });
 
-        // Simulate notifications
+        // Show notification
         function showNotification(message, type = 'success') {
             const notification = document.createElement('div');
             notification.className = `alert alert-${type}`;
@@ -1524,9 +2001,9 @@
             }, 5000);
         }
 
-        // Example: Show welcome notification
-            setTimeout(() => {
-            showNotification('Sistema carregado com sucesso! Bem-vindo, Alessandro!', 'success');
+        // Welcome notification
+        setTimeout(() => {
+            showNotification('Sistema carregado com sucesso! Bem-vindo, Alessandro Rodrigues!', 'success');
         }, 2000);
     </script>
 </body>
