@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Convites - Rotary Club Itaquaquecetuba</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Variáveis CSS seguindo Rotary Brand Guidelines */
+        :root {
+            --rotary-blue: #17458f;
+            --rotary-gold: #f7a81b;
+            --rotary-blue-mono: #0067c8;
+            --interact-blue: #00a2e0;
+            --rotaract-magenta: #d41367;
+            --background: #ffffff;
+            --surface: #f8f9fa;
+            --border: #dee2e6;
+            --text-primary: #212529;
+            --text-secondary: #6c757d;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --shadow: 0 2px 8px rgba(23, 69, 143, 0.1);
+            --shadow-lg: 0 8px 25px rgba(23, 69, 143, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', 'Arial', sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--rotary-blue) 0%, var(--rotary-blue-mono) 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: var(--shadow-lg);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1rem;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--rotary-blue);
+            font-size: 0.8rem;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .club-info h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+
+        .club-info p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--rotary-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Navigation */
+        .nav-tabs {
+            background: var(--surface);
+            border-bottom: 2px solid var(--border);
+            padding: 0;
+            margin: 0;
+            overflow-x: auto;
+        }
+
+        .nav-tabs-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 0;
+        }
+
+        .nav-tab {
+            background: none;
+            border: none;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .nav-tab:hover {
+            background: rgba(23, 69, 143, 0.05);
+            color: var(--rotary-blue);
+        }
+
+        .nav-tab.active {
+            color: var(--rotary-blue);
+            border-bottom-color: var(--rotary-gold);
+            background: rgba(23, 69, 143, 0.05);
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--surface);
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--rotary-blue);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--rotary-blue) 0%, var(--rotary-blue-mono) 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(30px, -30px);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stat-label {
+            opacity: 0.9;
+            font-size: 0.95rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stat-icon {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            font-size: 2rem;
+            opacity: 0.3;
+        }
+
+        /* Event Card */
+        .event-card {
+            border-left: 4px solid var(--rotary-gold);
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .event-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .event-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .event-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--rotary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .event-date {
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .event-status {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .status-active {
+            background: #e8f5e8;
+            color: var(--success);
+        }
+
+        .status-planning {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .event-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .event-stat {
+            text-align: center;
+            padding: 0.5rem;
+            background: var(--surface);
+            border-radius: 8px;
+        }
+
+        .event-stat-value {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--rotary-blue);
+        }
+
+        .event-stat-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: var(--rotary-blue);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--rotary-blue-mono);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: var(--rotary-gold);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #e6971a;
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--rotary-blue);
+            color: var(--rotary-blue);
+        }
+
+        .btn-outline:hover {
+            background: var(--rotary-blue);
+            color: white;
+        }
+
+        /* Table */
+        .table-responsive {
+            overflow-x: auto;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background: var(--surface);
+            font-weight: 600;
+            color: var(--rotary-blue);
+        }
+
+        tr:hover {
+            background: rgba(23, 69, 143, 0.02);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 90vw;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: scale(0.9) translateY(-20px); opacity: 0; }
+            to { transform: scale(1) translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--surface);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        .modal-close:hover {
+            background: var(--surface);
+            color: var(--danger);
+        }
+
+        /* Chart Container */
+        .chart-container {
+            height: 300px;
+            background: var(--surface);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1rem 0;
+            border: 2px dashed var(--border);
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--rotary-blue);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.7rem;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--rotary-blue);
+        }
+
+        /* QR Code */
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1rem auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .qr-code::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            background-image: 
+                linear-gradient(45deg, var(--rotary-blue) 25%, transparent 25%),
+                linear-gradient(-45deg, var(--rotary-blue) 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, var(--rotary-blue) 75%),
+                linear-gradient(-45deg, transparent 75%, var(--rotary-blue) 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .club-info h1 {
+                font-size: 1.2rem;
+            }
+
+            .nav-tab {
+                padding: 0.8rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .stat-value {
+                font-size: 2rem;
+            }
+
+            .event-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .event-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .modal-content {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+
+            .table-responsive {
+                font-size: 0.85rem;
+            }
+
+            th, td {
+                padding: 0.7rem 0.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-content {
+                padding: 1rem 0.5rem;
+            }
+
+            .card {
+                padding: 1rem;
+            }
+
+            .stat-card {
+                padding: 1rem;
+            }
+
+            .stat-value {
+                font-size: 1.8rem;
+            }
+
+            .event-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Success/Error Messages */
+        .alert {
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            border-left: 4px solid;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border-color: var(--success);
+        }
+
+        .alert-warning {
+            background: #fff3cd;
+            color: #856404;
+            border-color: var(--warning);
+        }
+
+        .alert-danger {
+            background: #f8d7da;
+            color: #721c24;
+            border-color: var(--danger);
+        }
+
+        /* Badge */
+        .badge {
+            padding: 0.3rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .badge-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .badge-warning {
+            background: var(--warning);
+            color: white;
+        }
+
+        .badge-primary {
+            background: var(--rotary-blue);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <div class="logo">
+                    ROTARY<br>ITAQUÁ<br>4563
+                </div>
+                <div class="club-info">
+                    <h1>Rotary Club Itaquaquecetuba</h1>
+                    <p>Distrito 4563 • Sistema de Gestão de Convites</p>
+                </div>
+            </div>
+            <div class="user-menu">
+                <span>Alessandro Santos</span>
+                <div class="user-avatar">AS</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav-tabs">
+        <div class="nav-tabs-content">
+            <button class="nav-tab active" onclick="showTab('dashboard')">
+                <i class="fas fa-tachometer-alt"></i>
+                Dashboard
+            </button>
+            <button class="nav-tab" onclick="showTab('events')">
+                <i class="fas fa-calendar-alt"></i>
+                Eventos
+            </button>
+            <button class="nav-tab" onclick="showTab('invites')">
+                <i class="fas fa-ticket-alt"></i>
+                Convites
+            </button>
+            <button class="nav-tab" onclick="showTab('sales')">
+                <i class="fas fa-chart-line"></i>
+                Vendas
+            </button>
+            <button class="nav-tab" onclick="showTab('members')">
+                <i class="fas fa-users"></i>
+                Companheiros
+            </button>
+            <button class="nav-tab" onclick="showTab('reports')">
+                <i class="fas fa-file-alt"></i>
+                Relatórios
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Dashboard Tab -->
+        <div id="dashboard" class="tab-content active">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">2</div>
+                    <div class="stat-label">Eventos Ativos</div>
+                    <i class="fas fa-calendar-check stat-icon"></i>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">347</div>
+                    <div class="stat-label">Convites Vendidos</div>
+                    <i class="fas fa-ticket-alt stat-icon"></i>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">R$ 52.050</div>
+                    <div class="stat-label">Faturamento Total</div>
+                    <i class="fas fa-coins stat-icon"></i>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">94%</div>
+                    <div class="stat-label">Taxa Check-in</div>
+                    <i class="fas fa-chart-pie stat-icon"></i>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <i class="fas fa-calendar-alt"></i>
+                        Eventos Recentes
+                    </h2>
+                    <button class="btn btn-primary" onclick="showModal('createEvent')">
+                        <i class="fas fa-plus"></i>
+                        Novo Evento
+                    </button>
+                </div>
+
+                <div class="event-card">
+                    <div class="event-header">
+                        <div>
+                            <h3 class="event-title">Jantar Beneficente</h3>
+                            <div class="event-date">
+                                <i class="fas fa-calendar"></i>
+                                15/12/2024 - 19h30
+                            </div>
+                        </div>
+                        <span class="event-status status-active">Vendas Abertas</span>
+                    </div>
+                    <div class="event-stats">
+                        <div class="event-stat">
+                            <div class="event-stat-value">234</div>
+                            <div class="event-stat-label">Vendidos</div>
+                        </div>
+                        <div class="event-stat">
+                            <div class="event-stat-value">66</div>
+                            <div class="event-stat-label">Disponíveis</div>
+                        </div>
+                        <div class="event-stat">
+                            <div class="event-stat-value">R$ 35.100</div>
+                            <div class="event-stat-label">Arrecadado</div>
+                        </div>
+                        <div class="event-stat">
+                            <div class="event-stat-value">78%</div>
+                            <div class="event-stat-label">Ocupação</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <div class="event-header">
+                        <div>
+                            <h3 class="event-title">Palestra Motivacional</h3>
+                            <div class="event-date">
+                                <i class="fas fa-calendar"></i>
+                                22/12/2024 - 14h00
+                            </div>
+                        </div>
+                        <span class="event-status status-planning">Planejamento</span>
+                    </div>
+                    <div class="event-stats">
+                        <div class="event-stat">
+                            <div class="event-stat-value">113</div>
+                            <div class="event-stat-label">Vendidos</div>
+                        </div>
+                        <div class="event-stat">
+                            <div class="event-stat-value">87</div>
+                            <div class="event-stat-label">Disponíveis</div>
+                        </div>
+                        <div class="event-stat">
+                            <div class="event-stat-value">R$ 16.950</div>
+                            <div class="event-stat-label">Arrecadado</div>
+                        </div>
+                        <div class="event-stat">
+                            <div class="event-stat-value">57%</div>
+                            <div class="event-stat-label">Ocupação</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Events Tab -->
+        <div id="events" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <i class="fas fa-calendar-alt"></i>
+                        Gestão de Eventos
+                    </h2>
+                    <button class="btn btn-primary" onclick="showModal('createEvent')">
+                        <i class="fas fa-plus"></i>
+                        Novo Evento
+                    </button>
+                </div>
+
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Evento</th>
+                                <th>Data/Hora</th>
+                                <th>Local</th>
+                                <th>Capacidade</th>
+                                <th>Vendidos</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <strong>Jantar Beneficente</strong><br>
+                                    <small>Em prol da Casa de Apoio</small>
+                                </td>
+                                <td>15/12/2024<br>19h30</td>
+                                <td>Buffet Villa Itaquá</td>
+                                <td>300</td>
+                                <td>234</td>
+                                <td><span class="badge badge-success">Ativo</span></td>
+                                <td>
+                                    <button class="btn btn-outline" onclick="showModal('eventDetails')">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Palestra Motivacional</strong><br>
+                                    <small>Dr. João Silva</small>
+                                </td>
+                                <td>22/12/2024<br>14h00</td>
+                                <td>Auditório Central</td>
+                                <td>200</td>
+                                <td>113</td>
+                                <td><span class="badge badge-warning">Planejamento</span></td>
+                                <td>
+                                    <button class="btn btn-outline" onclick="showModal('eventDetails')">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Invites Tab -->
+        <div id="invites" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <i class="fas fa-ticket-alt"></i>
+                        Gestão de Convites
+                    </h2>
+                    <div>
+                        <button class="btn btn-secondary" onclick="showModal('invitePreview')">
+                            <i class="fas fa-eye"></i>
+                            Visualizar Convite
+                        </button>
+                        <button class="btn btn-primary" onclick="showModal('generateInvites')">
+                            <i class="fas fa-magic"></i>
+                            Gerar Convites
+                        </button>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">150</div>
+                        <div class="stat-label">Convites Físicos</div>
+                        <i class="fas fa-print stat-icon"></i>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">197</div>
+                        <div class="stat-label">Convites Digitais</div>
+                        <i class="fas fa-mobile-alt stat-icon"></i>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">327</div>
+                        <div class="stat-label">Check-ins Realizados</div>
+                        <i class="fas fa-qrcode stat-icon"></i>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">20</div>
+                        <div class="stat-label">Não Compareceram</div>
+                        <i class="fas fa-user-times stat-icon"></i>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Tipo</th>
+                                <th>Companheiro</th>
+                                <th>Cliente</th>
+                                <th>Valor</th>
+                                <th>Status</th>
+                                <th>Check-in</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>F147</strong></td>
+                                <td><span class="badge badge-primary">Físico</span></td>
+                                <td>João Silva</td>
+                                <td>Maria Santos</td>
+                                <td>R$ 150,00</td>
+                                <td><span class="badge badge-success">Pago</span></td>
+                                <td><i class="fas fa-check text-success"></i> 19:25</td>
+                            </tr>
+                            <tr>
+                                <td><strong>D089</strong></td>
+                                <td><span class="badge badge-warning">Digital</span></td>
+                                <td>Ana Costa</td>
+                                <td>Pedro Oliveira</td>
+                                <td>R$ 150,00</td>
+                                <td><span class="badge badge-success">Pago</span></td>
+                                <td><i class="fas fa-times text-danger"></i> -</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sales Tab -->
+        <div id="sales" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <i class="fas fa-chart-line"></i>
+                        Dashboard de Vendas
+                    </h2>
+                    <button class="btn btn-primary" onclick="showModal('salesReport')">
+                        <i class="fas fa-download"></i>
+                        Exportar Relatório
+                    </button>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">R$ 52.050</div>
+                        <div class="stat-label">Faturamento Total</div>
+                        <i class="fas fa-coins stat-icon"></i>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">R$ 35.100</div>
+                        <div class="stat-label">PIX Recebido</div>
+                        <i class="fas fa-mobile-alt stat-icon"></i>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">R$ 16.950</div>
+                        <div class="stat-label">Cartão Recebido</div>
+                        <i class="fas fa-credit-card stat-icon"></i>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">R$ 138,60</div>
+                        <div class="stat-label">Taxas Bancárias</div>
+                        <i class="fas fa-percentage stat-icon"></i>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <div style="text-align: center; color: var(--text-secondary);">
+                        <i class="fas fa-chart-bar" style="font-size: 3rem; margin-bottom: 1rem; display: block;"></i>
+                        <p>Gráfico de Vendas por Período</p>
+                        <small>Dados em tempo real</small>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Vendas por Companheiro</h3>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Companheiro</th>
+                                    <th>Convites Vendidos</th>
+                                    <th>Valor Total</th>
+                                    <th>Comissão</th>
+                                    <th>Meta</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>João Silva</strong></td>
+                                    <td>47</td>
+                                    <td>R$ 7.050,00</td>
+                                    <td>R$ 352,50</td>
+                                    <td>78% <span class="badge badge-success">Meta atingida</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Ana Costa</strong></td>
+                                    <td>38</td>
+                                    <td>R$ 5.700,00</td>
+                                    <td>R$ 285,00</td>
+                                    <td>63% <span class="badge badge-warning">Em progresso</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Carlos Santos</strong></td>
+                                    <td>52</td>
+                                    <td>R$ 7.800,00</td>
+                                    <td>R$ 390,00</td>
+                                    <td>87% <span class="badge badge-success">Meta atingida</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Members Tab -->
+        <div id="members" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <i class="fas fa-users"></i>
+                        Gestão de Companheiros
+                    </h2>
+                    <button class="btn btn-primary" onclick="showModal('addMember')">
+                        <i class="fas fa-user-plus"></i>
+                        Adicionar Companheiro
+                    </button>
+                </div>
+
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Email</th>
+                                <th>Telefone</th>
+                                <th>Quota Atual</th>
+                                <th>Vendas</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <div class="user-avatar" style="width: 32px; height: 32px; font-size: 0.8rem;">JS</div>
+                                        <strong>João Silva</strong>
+                                    </div>
+                                </td>
+                                <td>joao.silva@email.com</td>
+                                <td>(11) 99999-1234</td>
+                                <td>60 convites</td>
+                                <td>47 vendidos</td>
+                                <td><span class="badge badge-success">Ativo</span></td>
+                                <td>
+                                    <button class="btn btn-outline">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <div class="user-avatar" style="width: 32px; height: 32px; font-size: 0.8rem;">AC</div>
+                                        <strong>Ana Costa</strong>
+                                    </div>
+                                </td>
+                                <td>ana.costa@email.com</td>
+                                <td>(11) 98888-5678</td>
+                                <td>60 convites</td>
+                                <td>38 vendidos</td>
+                                <td><span class="badge badge-success">Ativo</span></td>
+                                <td>
+                                    <button class="btn btn-outline">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reports Tab -->
+        <div id="reports" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <i class="fas fa-file-alt"></i>
+                        Relatórios Automáticos
+                    </h2>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="card" style="text-align: center; cursor: pointer;" onclick="showModal('financialReport')">
+                        <i class="fas fa-chart-pie" style="font-size: 3rem; color: var(--rotary-blue); margin-bottom: 1rem;"></i>
+                        <h3>Relatório Financeiro</h3>
+                        <p>Receitas, despesas e lucro líquido</p>
+                        <button class="btn btn-primary" style="margin-top: 1rem;">
+                            <i class="fas fa-download"></i>
+                            Gerar Relatório
+                        </button>
+                    </div>
+
+                    <div class="card" style="text-align: center; cursor: pointer;" onclick="showModal('attendanceReport')">
+                        <i class="fas fa-users" style="font-size: 3rem; color: var(--rotary-gold); margin-bottom: 1rem;"></i>
+                        <h3>Relatório de Presença</h3>
+                        <p>Check-ins e lista de presença</p>
+                        <button class="btn btn-secondary" style="margin-top: 1rem;">
+                            <i class="fas fa-download"></i>
+                            Gerar Relatório
+                        </button>
+                    </div>
+
+                    <div class="card" style="text-align: center; cursor: pointer;" onclick="showModal('salesAnalysis')">
+                        <i class="fas fa-chart-line" style="font-size: 3rem; color: var(--interact-blue); margin-bottom: 1rem;"></i>
+                        <h3>Análise de Vendas</h3>
+                        <p>Performance por companheiro</p>
+                        <button class="btn btn-outline" style="margin-top: 1rem;">
+                            <i class="fas fa-download"></i>
+                            Gerar Relatório
+                        </button>
+                    </div>
+
+                    <div class="card" style="text-align: center; cursor: pointer;" onclick="showModal('eventSummary')">
+                        <i class="fas fa-calendar-check" style="font-size: 3rem; color: var(--success); margin-bottom: 1rem;"></i>
+                        <h3>Resumo do Evento</h3>
+                        <p>Estatísticas completas do evento</p>
+                        <button class="btn btn-primary" style="margin-top: 1rem;">
+                            <i class="fas fa-download"></i>
+                            Gerar Relatório
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modals -->
+    
+    <!-- Create Event Modal -->
+    <div id="createEventModal" class="modal">
+        <div class="modal-content" style="max-width: 600px;">
+            <div class="modal-header">
+                <h2><i class="fas fa-calendar-plus"></i> Criar Novo Evento</h2>
+                <button class="modal-close" onclick="closeModal('createEventModal')">&times;</button>
+            </div>
+            <form>
+                <div class="form-group">
+                    <label class="form-label">Nome do Evento</label>
+                    <input type="text" class="form-control" placeholder="Ex: Jantar Beneficente">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Data e Hora</label>
+                    <input type="datetime-local" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Local</label>
+                    <input type="text" class="form-control" placeholder="Ex: Buffet Villa Itaquá">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Capacidade Máxima</label>
+                    <input type="number" class="form-control" placeholder="300">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Valor do Convite (R$)</label>
+                    <input type="number" step="0.01" class="form-control" placeholder="150.00">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Descrição</label>
+                    <textarea class="form-control" rows="3" placeholder="Descrição do evento..."></textarea>
+                </div>
+                <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('createEventModal')">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i>
+                        Criar Evento
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Invite Preview Modal -->
+    <div id="invitePreviewModal" class="modal">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h2><i class="fas fa-eye"></i> Visualizar Convite</h2>
+                <button class="modal-close" onclick="closeModal('invitePreviewModal')">&times;</button>
+            </div>
+            
+            <div style="border: 3px solid var(--rotary-blue); border-radius: 12px; padding: 2rem; background: white; margin: 1rem 0;">
+                <div style="text-align: center; margin-bottom: 1.5rem;">
+                    <div class="logo" style="margin: 0 auto 1rem;">ROTARY<br>ITAQUÁ<br>4563</div>
+                    <h3 style="color: var(--rotary-blue); margin-bottom: 0.5rem;">JANTAR BENEFICENTE</h3>
+                    <p style="color: var(--text-secondary);">Em prol da Casa de Apoio</p>
+                </div>
+                
+                <div style="text-align: center; margin: 1.5rem 0;">
+                    <div style="background: var(--surface); padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                        <i class="fas fa-calendar" style="color: var(--rotary-blue);"></i>
+                        <strong>15/12/2024 - 19h30</strong>
+                    </div>
+                    <div style="background: var(--surface); padding: 1rem; border-radius: 8px;">
+                        <i class="fas fa-map-marker-alt" style="color: var(--rotary-gold);"></i>
+                        <strong>Buffet Villa Itaquá</strong>
+                    </div>
+                </div>
+
+                <div class="qr-code">
+                    <span style="position: relative; z-index: 10; background: white; padding: 0.5rem; border-radius: 4px; font-weight: bold;">QR CODE</span>
+                </div>
+
+                <div style="text-align: center; margin-top: 1rem; padding: 1rem; background: var(--rotary-gold); color: white; border-radius: 8px;">
+                    <strong>Convite: F147</strong><br>
+                    <strong>Valor: R$ 150,00</strong>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                <button class="btn btn-outline" onclick="closeModal('invitePreviewModal')">Fechar</button>
+                <button class="btn btn-secondary">
+                    <i class="fas fa-print"></i>
+                    Imprimir
+                </button>
+                <button class="btn btn-primary">
+                    <i class="fas fa-share"></i>
+                    Compartilhar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sales Report Modal -->
+    <div id="salesReportModal" class="modal">
+        <div class="modal-content" style="max-width: 800px;">
+            <div class="modal-header">
+                <h2><i class="fas fa-chart-line"></i> Relatório de Vendas</h2>
+                <button class="modal-close" onclick="closeModal('salesReportModal')">&times;</button>
+            </div>
+
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i>
+                <strong>Meta de vendas atingida!</strong> O evento já arrecadou 78% da capacidade total.
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card" style="background: linear-gradient(135deg, var(--success) 0%, #20c997 100%);">
+                    <div class="stat-value">234</div>
+                    <div class="stat-label">Convites Vendidos</div>
+                    <i class="fas fa-ticket-alt stat-icon"></i>
+                </div>
+                <div class="stat-card" style="background: linear-gradient(135deg, var(--rotary-gold) 0%, #e6971a 100%);">
+                    <div class="stat-value">R$ 35.100</div>
+                    <div class="stat-label">Receita Bruta</div>
+                    <i class="fas fa-coins stat-icon"></i>
+                </div>
+            </div>
+
+            <div class="chart-container" style="height: 250px;">
+                <div style="text-align: center; color: var(--text-secondary);">
+                    <i class="fas fa-chart-area" style="font-size: 2.5rem; margin-bottom: 1rem; display: block;"></i>
+                    <p><strong>Evolução das Vendas</strong></p>
+                    <small>Vendas por semana nos últimos 30 dias</small>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Forma de Pagamento</th>
+                            <th>Quantidade</th>
+                            <th>Valor Total</th>
+                            <th>Taxa</th>
+                            <th>Líquido</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><i class="fas fa-mobile-alt" style="color: var(--interact-blue);"></i> PIX</td>
+                            <td>156</td>
+                            <td>R$ 23.400,00</td>
+                            <td>R$ 62,40</td>
+                            <td>R$ 23.337,60</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fas fa-credit-card" style="color: var(--rotary-gold);"></i> Cartão</td>
+                            <td>78</td>
+                            <td>R$ 11.700,00</td>
+                            <td>R$ 351,00</td>
+                            <td>R$ 11.349,00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                <button class="btn btn-outline" onclick="closeModal('salesReportModal')">Fechar</button>
+                <button class="btn btn-primary">
+                    <i class="fas fa-download"></i>
+                    Baixar PDF
+                </button>
+                <button class="btn btn-secondary">
+                    <i class="fas fa-file-excel"></i>
+                    Exportar Excel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Event Details Modal -->
+    <div id="eventDetailsModal" class="modal">
+        <div class="modal-content" style="max-width: 900px;">
+            <div class="modal-header">
+                <h2><i class="fas fa-calendar-alt"></i> Detalhes do Evento</h2>
+                <button class="modal-close" onclick="closeModal('eventDetailsModal')">&times;</button>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                <div>
+                    <h3 style="color: var(--rotary-blue); margin-bottom: 1rem;">Jantar Beneficente</h3>
+                    <p><strong>Data:</strong> 15/12/2024 às 19h30</p>
+                    <p><strong>Local:</strong> Buffet Villa Itaquá</p>
+                    <p><strong>Descrição:</strong> Evento beneficente em prol da Casa de Apoio para crianças carentes. Jantar com apresentação musical e sorteios.</p>
+                </div>
+                <div>
+                    <div class="card" style="text-align: center; margin: 0;">
+                        <h4 style="color: var(--rotary-blue);">Status do Evento</h4>
+                        <div class="stat-value" style="color: var(--success);">78%</div>
+                        <div class="stat-label">Ocupação</div>
+                        <span class="badge badge-success" style="margin-top: 1rem;">Vendas Abertas</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card" style="background: linear-gradient(135deg, var(--rotary-blue) 0%, var(--rotary-blue-mono) 100%);">
+                    <div class="stat-value">234</div>
+                    <div class="stat-label">Convites Vendidos</div>
+                </div>
+                <div class="stat-card" style="background: linear-gradient(135deg, var(--rotary-gold) 0%, #e6971a 100%);">
+                    <div class="stat-value">66</div>
+                    <div class="stat-label">Disponíveis</div>
+                </div>
+                <div class="stat-card" style="background: linear-gradient(135deg, var(--success) 0%, #20c997 100%);">
+                    <div class="stat-value">R$ 35.100</div>
+                    <div class="stat-label">Arrecadado</div>
+                </div>
+                <div class="stat-card" style="background: linear-gradient(135deg, var(--interact-blue) 0%, #0087c7 100%);">
+                    <div class="stat-value">220</div>
+                    <div class="stat-label">Check-ins</div>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                <button class="btn btn-outline" onclick="closeModal('eventDetailsModal')">Fechar</button>
+                <button class="btn btn-secondary">
+                    <i class="fas fa-qrcode"></i>
+                    Scanner Portaria
+                </button>
+                <button class="btn btn-primary">
+                    <i class="fas fa-cog"></i>
+                    Configurar Evento
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab Management
+        function showTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active class from all nav tabs
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked nav tab
+            event.target.classList.add('active');
+        }
+
+        // Modal Management
+        function showModal(modalId) {
+            const modal = document.getElementById(modalId + 'Modal');
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('click', function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Simulate real-time updates
+        function updateStats() {
+            // This would normally connect to your backend API
+            console.log('Updating real-time statistics...');
+            
+            // Example of updating a stat value
+            setTimeout(() => {
+                const checkInRate = document.querySelector('.stat-card:last-child .stat-value');
+                if (checkInRate && Math.random() > 0.7) {
+                    let currentValue = parseInt(checkInRate.textContent.replace('%', ''));
+                    checkInRate.textContent = Math.min(100, currentValue + 1) + '%';
+                }
+            }, 5000);
+        }
+
+        // Initialize the system
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Sistema Rotary Club Itaquaquecetuba carregado com sucesso!');
+            
+            // Start real-time updates
+            updateStats();
+            setInterval(updateStats, 30000); // Update every 30 seconds
+            
+            // Add some interactive feedback
+            document.querySelectorAll('.btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Add loading state
+                    if (!this.classList.contains('btn-outline')) {
+                        const originalText = this.innerHTML;
+                        this.innerHTML = '<div class="loading"></div> Processando...';
+                        this.disabled = true;
+                        
+                        setTimeout(() => {
+                            this.innerHTML = originalText;
+                            this.disabled = false;
+                        }, 2000);
+                    }
+                });
+            });
+        });
+
+        // Simulate notifications
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `alert alert-${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-triangle'}"></i>
+                ${message}
+            `;
+            notification.style.position = 'fixed';
+            notification.style.top = '100px';
+            notification.style.right = '20px';
+            notification.style.zIndex = '3000';
+            notification.style.minWidth = '300px';
+            notification.style.animation = 'slideIn 0.3s ease';
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 5000);
+        }
+
+        // Example: Show welcome notification
+            setTimeout(() => {
+            showNotification('Sistema carregado com sucesso! Bem-vindo, Alessandro!', 'success');
+        }, 2000);
+    </script>
+</body>
+</html>
