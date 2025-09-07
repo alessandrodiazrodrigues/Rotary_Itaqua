@@ -12,7 +12,7 @@ npm install
 ```
 
 ### 2. Configure o arquivo settings.js
-Edite `src/config/settings.js` com suas credenciais:
+Edite `config/settings.js` com suas credenciais:
 
 ```javascript
 GOOGLE_SHEETS_ID: "SEU_ID_AQUI",
@@ -37,19 +37,25 @@ npm run build
 
 ```
 📦 rotary-convites/
-├── 📁 src/
-│   ├── 📁 config/
-│   │   └── settings.js         # ⚙️ ARQUIVO PRINCIPAL
-│   ├── 📁 components/
-│   │   └── common/
-│   │       └── Button.jsx      # Componente base
-│   ├── 📁 pages/
-│   │   ├── Login.jsx          # Página de login
-│   │   └── Dashboard.jsx      # Dashboard Alessandro
-│   └── 📁 services/
-│       └── auth.js            # Autenticação
-├── package.json               # Dependências
-└── README.md                  # Este arquivo
+├── 📁 pages/                   # Roteamento Next.js
+│   ├── _app.js                 # App wrapper
+│   ├── index.js                # Página inicial
+│   ├── dashboard.js            # Dashboard Alessandro
+│   ├── login.js                # Login Google/WhatsApp
+│   └── api/                    # API Routes (futuro)
+│       ├── eventos.js          # CRUD eventos
+│       └── convites.js         # CRUD convites
+├── 📁 components/              # Componentes reutilizáveis
+│   ├── layout/
+│   │   └── Header.jsx          # Cabeçalho
+│   └── common/
+│       └── Button.jsx          # Botão padrão
+├── 📁 config/
+│   └── settings.js             # ⚙️ ARQUIVO PRINCIPAL
+├── 📁 styles/
+│   └── globals.css             # CSS global + Tailwind
+├── package.json                # Dependências Next.js
+└── README.md                   # Este arquivo
 ```
 
 ## 🔐 Sistema de Login
@@ -71,7 +77,7 @@ npm run build
 2. Extensions → Apps Script
 3. Cole código do backend
 4. Deploy como Web App
-5. Copie URL para `settings.js`
+5. Copie URL para `config/settings.js`
 
 ### WhatsApp Evolution API
 ```bash
@@ -141,7 +147,7 @@ docker run -d \
 ## 🔧 Manutenção
 
 ### Atualizar Configurações
-1. Edite `src/config/settings.js`
+1. Edite `config/settings.js`
 2. Commit no GitHub
 3. Deploy automático (2-3 min)
 4. Teste funcionamento
@@ -162,7 +168,7 @@ docker run -d \
 ### Fase 1 ✅ (Atual)
 - [x] Sistema de login
 - [x] Dashboard básico
-- [x] Estrutura modular
+- [x] Estrutura Next.js
 - [ ] Google Sheets integration
 - [ ] WhatsApp integration
 
