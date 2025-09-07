@@ -1,8 +1,9 @@
 @tailwind base;
-@tailwind components; 
+@tailwind components;
 @tailwind utilities;
 
 body {
   font-family: 'Open Sans', Arial, sans-serif;
   margin: 0;
+  padding: 0;
 }
