@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Font Awesome já está no public/index.html */
+body {
+  margin: 0;
+  font-family: 'Open Sans', Arial, sans-serif;
+}
