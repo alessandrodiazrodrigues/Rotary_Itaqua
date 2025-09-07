@@ -1,15 +1,12 @@
-'use client';
-
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
 
 export default function Home() {
-  const router = useRouter();
+  const router = useRouter()
 
   useEffect(() => {
-    // Redirecionar automaticamente para o Dashboard
-    router.push('/Dashboard');
-  }, [router]);
+    router.push('/dashboard')
+  }, [router])
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -18,5 +15,5 @@ export default function Home() {
         <p className="text-gray-600">Redirecionando para o sistema...</p>
       </div>
     </div>
-  );
+  )
 }
