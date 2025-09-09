@@ -1,9 +1,320 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+// styles/globals.css
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
-body {
-  font-family: 'Open Sans', Arial, sans-serif;
+/* Variáveis CSS Rotary */
+:root {
+  --rotary-blue: #17458f;
+  --rotary-gold: #f7a81b;
+  --rotary-blue-mono: #0067c8;
+  --interact-blue: #00a2e0;
+  --rotaract-magenta: #d41367;
+  --success: #28a745;
+  --warning: #ffc107;
+  --danger: #dc3545;
+  --info: #17a2b8;
+}
+
+/* Reset e Base */
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  color: #212529;
+  background-color: #f8f9fa;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* NProgress Customização */
+#nprogress {
+  pointer-events: none;
+}
+
+#nprogress .bar {
+  background: var(--rotary-gold) !important;
+  position: fixed;
+  z-index: 1031;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+}
+
+#nprogress .peg {
+  display: block;
+  position: absolute;
+  right: 0px;
+  width: 100px;
+  height: 100%;
+  box-shadow: 0 0 10px var(--rotary-gold), 0 0 5px var(--rotary-gold);
+  opacity: 1;
+  transform: rotate(3deg) translate(0px, -4px);
+}
+
+/* Scrollbar Personalizada */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--rotary-blue);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--rotary-blue-mono);
+}
+
+/* Seleção de Texto */
+::selection {
+  background: var(--rotary-gold);
+  color: white;
+}
+
+::-moz-selection {
+  background: var(--rotary-gold);
+  color: white;
+}
+
+/* Foco Acessível */
+.focus-visible {
+  outline: 2px solid var(--rotary-blue);
+  outline-offset: 2px;
+}
+
+/* Animações Customizadas */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 53%, 80%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  40%, 43% {
+    transform: translate3d(0, -30px, 0);
+  }
+  70% {
+    transform: translate3d(0, -15px, 0);
+  }
+  90% {
+    transform: translate3d(0, -4px, 0);
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+.animate-fadeInLeft {
+  animation: fadeInLeft 0.5s ease-out;
+}
+
+/* Utilitários Rotary */
+.bg-rotary-blue {
+  background-color: var(--rotary-blue);
+}
+
+.bg-rotary-gold {
+  background-color: var(--rotary-gold);
+}
+
+.text-rotary-blue {
+  color: var(--rotary-blue);
+}
+
+.text-rotary-gold {
+  color: var(--rotary-gold);
+}
+
+.border-rotary-blue {
+  border-color: var(--rotary-blue);
+}
+
+.border-rotary-gold {
+  border-color: var(--rotary-gold);
+}
+
+/* Gradients Rotary */
+.bg-gradient-rotary {
+  background: linear-gradient(135deg, var(--rotary-blue) 0%, var(--rotary-blue-mono) 100%);
+}
+
+.bg-gradient-rotary-gold {
+  background: linear-gradient(135deg, var(--rotary-gold) 0%, #e6971a 100%);
+}
+
+/* Shadows Rotary */
+.shadow-rotary {
+  box-shadow: 0 4px 6px -1px rgba(23, 69, 143, 0.1), 0 2px 4px -1px rgba(23, 69, 143, 0.06);
+}
+
+.shadow-rotary-lg {
+  box-shadow: 0 10px 15px -3px rgba(23, 69, 143, 0.1), 0 4px 6px -2px rgba(23, 69, 143, 0.05);
+}
+
+/* Estados de Loading */
+.loading-skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  .print-only {
+    display: block !important;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  
+  .bg-rotary-blue,
+  .bg-rotary-gold {
+    background: white !important;
+    color: black !important;
+    border: 1px solid black !important;
+  }
+}
+
+/* Responsive Utilities */
+.container-rotary {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (min-width: 640px) {
+  .container-rotary {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-rotary {
+    padding: 0 2rem;
+  }
+}
+
+/* Accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .bg-gradient-rotary,
+  .bg-gradient-rotary-gold {
+    background: var(--rotary-blue) !important;
+  }
+  
+  .shadow-rotary,
+  .shadow-rotary-lg {
+    box-shadow: 0 0 0 2px black !important;
+  }
+}
+
+/* Dark Mode (para futuras implementações) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #1a1a1a;
+    --surface: #2d2d2d;
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0a0;
+  }
+}
+
+/* Utilities para Mobile */
+@media (max-width: 768px) {
+  .mobile-full {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+  }
+  
+  .mobile-padding {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .mobile-text-sm {
+    font-size: 0.875rem;
+  }
 }
