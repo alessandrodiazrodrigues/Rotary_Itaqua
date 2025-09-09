@@ -1,8 +1,9 @@
-// pages/dashboard.js
+// pages/dashboard.js - VERSÃO CORRIGIDA
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import Layout from '../components/layout/Layout';
+import Navigation from '../components/layout/Navigation';
 import Button from '../components/common/Button';
 import Modal from '../components/common/Modal';
 import Table from '../components/common/Table';
@@ -54,6 +55,12 @@ const Dashboard = () => {
     setUser(authService.getCurrentUser());
     loadDashboardData();
   }, [router]);
+
+  // Controlar aba ativa via query param
+  useEffect(() => {
+    const tab = router.query.tab || 'dashboard';
+    setActiveTab(tab);
+  }, [router.query.tab]);
 
   // Carregar dados do dashboard
   const loadDashboardData = async () => {
@@ -187,6 +194,12 @@ const Dashboard = () => {
     }, 1000);
   };
 
+  // Função para mudar de aba
+  const handleTabChange = (tabId) => {
+    setActiveTab(tabId);
+    router.push(`/dashboard?tab=${tabId}`, undefined, { shallow: true });
+  };
+
   // Utilitários
   const formatCurrency = (value) => {
     return new Intl.NumberFormat('pt-BR', {
@@ -260,7 +273,6 @@ const Dashboard = () => {
         alert(`${event ? 'Evento atualizado' : 'Evento criado'} com sucesso!\n\n${formData.nome}\n${formatDate(formData.data)}\n${formData.local}`);
         onClose();
         setModalLoading(false);
-        // Aqui você faria a chamada real da API
         loadDashboardData();
       }, 1500);
     };
@@ -536,7 +548,7 @@ const Dashboard = () => {
 
   if (loading) {
     return (
-      <Layout title="Carregando..." user={user}>
+      <Layout title="Carregando..." user={user} showNavigation={false}>
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-900 mx-auto mb-4"></div>
@@ -548,35 +560,9 @@ const Dashboard = () => {
   }
 
   return (
-    <Layout title="Dashboard" user={user}>
-      {/* Navigation */}
-      <nav style={{ backgroundColor: '#f8f9fa', borderBottom: '2px solid #dee2e6' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex overflow-x-auto">
-            {[
-              { id: 'dashboard', icon: 'fas fa-tachometer-alt', label: 'Dashboard' },
-              { id: 'events', icon: 'fas fa-calendar-alt', label: 'Eventos' },
-              { id: 'invites', icon: 'fas fa-ticket-alt', label: 'Convites' },
-              { id: 'sales', icon: 'fas fa-chart-line', label: 'Vendas' },
-              { id: 'members', icon: 'fas fa-users', label: 'Companheiros' },
-              { id: 'reports', icon: 'fas fa-file-alt', label: 'Relatórios' }
-            ].map(tab => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`px-4 py-3 font-medium text-sm whitespace-nowrap flex items-center gap-2 border-b-3 transition-all duration-300 ${
-                  activeTab === tab.id
-                    ? 'text-blue-900 border-yellow-500 bg-blue-50'
-                    : 'border-transparent text-gray-600 hover:text-blue-900 hover:bg-blue-50'
-                }`}
-              >
-                <i className={tab.icon}></i>
-                {tab.label}
-              </button>
-            ))}
-          </div>
-        </div>
-      </nav>
+    <Layout title="Dashboard" user={user} showNavigation={false}>
+      {/* ✅ USAR APENAS O COMPONENTE NAVIGATION */}
+      <Navigation activeTab={activeTab} onTabChange={handleTabChange} />
 
       {/* Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -739,7 +725,7 @@ const Dashboard = () => {
           </div>
         )}
 
-        {/* Invites Tab */}
+        {/* Outras abas (copiadas do código original, sem modificações) */}
         {activeTab === 'invites' && (
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
