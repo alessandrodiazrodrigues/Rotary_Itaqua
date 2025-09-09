@@ -1,3 +1,4 @@
+// package.json
 {
   "name": "rotary-convites",
   "version": "1.0.0",
@@ -7,27 +8,115 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "type-check": "tsc --noEmit",
+    "export": "next export",
+    "analyze": "cross-env ANALYZE=true next build",
+    "clean": "rimraf .next out",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
-    "next": "14.0.0",
+    "next": "14.0.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.12.0",
+    
+    // Formulários e validação
+    "react-hook-form": "^7.48.2",
+    "yup": "^1.4.0",
+    "@hookform/resolvers": "^3.3.2",
+    
+    // Gráficos e visualizações
+    "recharts": "^2.8.0",
+    
+    // QR Code
     "qrcode": "^1.5.3",
+    "react-qr-code": "^2.0.12",
+    
+    // Autenticação e cookies
     "js-cookie": "^3.0.5",
-    "axios": "^1.6.0",
-    "recharts": "^2.8.0"
+    "@types/js-cookie": "^3.0.6",
+    
+    // HTTP client
+    "axios": "^1.6.2",
+    
+    // Utilitários
+    "clsx": "^2.0.0",
+    "lodash": "^4.17.21",
+    "@types/lodash": "^4.14.202",
+    
+    // Data e formatação
+    "date-fns": "^2.30.0",
+    "numeral": "^2.0.6",
+    "@types/numeral": "^2.0.5",
+    
+    // Progress bar
+    "nprogress": "^0.2.0",
+    "@types/nprogress": "^0.2.3",
+    
+    // Animações
+    "framer-motion": "^10.16.16",
+    
+    // Drag and drop
+    "react-beautiful-dnd": "^13.1.1",
+    "@types/react-beautiful-dnd": "^13.1.8",
+    
+    // Toast notifications
+    "react-hot-toast": "^2.4.1",
+    
+    // Markdown (para documentação)
+    "react-markdown": "^9.0.1",
+    
+    // PWA
+    "next-pwa": "^5.6.0",
+    
+    // Export to Excel/CSV
+    "xlsx": "^0.18.5",
+    "papaparse": "^5.4.1",
+    "@types/papaparse": "^5.3.14"
   },
   "devDependencies": {
-    "autoprefixer": "^10.0.1",
-    "eslint": "^8",
-    "eslint-config-next": "14.0.0",
-    "postcss": "^8",
-    "tailwindcss": "^3.3.0"
+    "@types/node": "^20.10.5",
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.18",
+    "typescript": "^5.3.3",
+    
+    // Linting e formatação
+    "eslint": "^8.56.0",
+    "eslint-config-next": "14.0.4",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.2",
+    "prettier": "^3.1.1",
+    
+    // CSS e styling
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.32",
+    "tailwindcss": "^3.3.6",
+    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/typography": "^0.5.10",
+    
+    // Build e análise
+    "cross-env": "^7.0.3",
+    "rimraf": "^5.0.5",
+    "@next/bundle-analyzer": "^14.0.4",
+    
+    // Testing
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "@testing-library/react": "^14.1.2",
+    "@testing-library/jest-dom": "^6.1.5",
+    "@testing-library/user-event": "^14.5.1",
+    
+    // Git hooks
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
   },
   "repository": {
     "type": "git",
@@ -38,8 +127,41 @@
     "convites",
     "eventos",
     "qrcode",
-    "whatsapp"
+    "whatsapp",
+    "next.js",
+    "react",
+    "tailwindcss"
   ],
-  "author": "Alessandro Rodrigues <cvcalessandro@gmail.com>",
-  "license": "MIT"
+  "author": {
+    "name": "Alessandro Rodrigues",
+    "email": "cvcalessandro@gmail.com"
+  },
+  "license": "MIT",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{css,scss,md,json}": [
+      "prettier --write"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run type-check"
+    }
+  }
 }
