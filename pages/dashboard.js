@@ -226,7 +226,7 @@ const Dashboard = () => {
       valor_meia: 50.00,
       descricao: ''
     });
-    const [loading, setLoading] = useState(false);
+    const [modalLoading, setModalLoading] = useState(false);
 
     useEffect(() => {
       if (event) {
@@ -239,17 +239,29 @@ const Dashboard = () => {
           valor_meia: event.valor_meia,
           descricao: event.descricao || ''
         });
+      } else {
+        setFormData({
+          nome: '',
+          data: '',
+          local: 'Roda d\'Água',
+          capacidade: 300,
+          valor_inteira: 100.00,
+          valor_meia: 50.00,
+          descricao: ''
+        });
       }
-    }, [event]);
+    }, [event, isOpen]);
 
     const handleSubmit = async (e) => {
       e.preventDefault();
-      setLoading(true);
+      setModalLoading(true);
       
       setTimeout(() => {
         alert(`${event ? 'Evento atualizado' : 'Evento criado'} com sucesso!\n\n${formData.nome}\n${formatDate(formData.data)}\n${formData.local}`);
         onClose();
-        setLoading(false);
+        setModalLoading(false);
+        // Aqui você faria a chamada real da API
+        loadDashboardData();
       }, 1500);
     };
 
@@ -273,7 +285,7 @@ const Dashboard = () => {
                 value={formData.nome}
                 onChange={handleChange}
                 placeholder="Ex: Festa Julina Rotary"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 required
               />
             </div>
@@ -285,7 +297,7 @@ const Dashboard = () => {
                 name="data"
                 value={formData.data}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 required
               />
             </div>
@@ -297,7 +309,7 @@ const Dashboard = () => {
                 name="local"
                 value={formData.local}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 required
               />
             </div>
@@ -310,7 +322,7 @@ const Dashboard = () => {
                 value={formData.capacidade}
                 onChange={handleChange}
                 min="1"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 required
               />
             </div>
@@ -324,7 +336,7 @@ const Dashboard = () => {
                 onChange={handleChange}
                 step="0.01"
                 min="0"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 required
               />
             </div>
@@ -338,7 +350,7 @@ const Dashboard = () => {
                 onChange={handleChange}
                 step="0.01"
                 min="0"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 required
               />
             </div>
@@ -351,7 +363,7 @@ const Dashboard = () => {
                 onChange={handleChange}
                 rows={3}
                 placeholder="Descrição do evento..."
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
           </div>
@@ -368,10 +380,10 @@ const Dashboard = () => {
           </div>
 
           <div className="flex gap-4 pt-4">
-            <Button variant="outline" onClick={onClose} disabled={loading}>
+            <Button variant="outline" onClick={onClose} disabled={modalLoading}>
               Cancelar
             </Button>
-            <Button type="submit" loading={loading} className="flex-1">
+            <Button type="submit" loading={modalLoading} className="flex-1">
               {event ? 'Atualizar Evento' : 'Criar Evento'}
             </Button>
           </div>
@@ -389,7 +401,7 @@ const Dashboard = () => {
       quota_fisica: 30,
       quota_digital: 30
     });
-    const [loading, setLoading] = useState(false);
+    const [modalLoading, setModalLoading] = useState(false);
 
     useEffect(() => {
       if (member) {
@@ -400,17 +412,26 @@ const Dashboard = () => {
           quota_fisica: member.quota_fisica || 30,
           quota_digital: member.quota_digital || 30
         });
+      } else {
+        setFormData({
+          nome: '',
+          email: '',
+          telefone: '',
+          quota_fisica: 30,
+          quota_digital: 30
+        });
       }
-    }, [member]);
+    }, [member, isOpen]);
 
     const handleSubmit = async (e) => {
       e.preventDefault();
-      setLoading(true);
+      setModalLoading(true);
       
       setTimeout(() => {
         alert(`${member ? 'Companheiro atualizado' : 'Companheiro adicionado'} com sucesso!\n\n${formData.nome}\n${formData.email}`);
         onClose();
-        setLoading(false);
+        setModalLoading(false);
+        loadDashboardData();
       }, 1500);
     };
 
@@ -433,7 +454,7 @@ const Dashboard = () => {
               value={formData.nome}
               onChange={handleChange}
               placeholder="Ex: João Silva"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               required
             />
           </div>
@@ -446,7 +467,7 @@ const Dashboard = () => {
               value={formData.email}
               onChange={handleChange}
               placeholder="joao.silva@email.com"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               required
             />
           </div>
@@ -459,7 +480,7 @@ const Dashboard = () => {
               value={formData.telefone}
               onChange={handleChange}
               placeholder="(11) 99999-1234"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               required
             />
           </div>
@@ -474,7 +495,7 @@ const Dashboard = () => {
                 onChange={handleChange}
                 min="0"
                 max="100"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
             <div>
@@ -486,7 +507,7 @@ const Dashboard = () => {
                 onChange={handleChange}
                 min="0"
                 max="100"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
           </div>
@@ -501,10 +522,10 @@ const Dashboard = () => {
           </div>
 
           <div className="flex gap-4 pt-4">
-            <Button variant="outline" onClick={onClose} disabled={loading}>
+            <Button variant="outline" onClick={onClose} disabled={modalLoading}>
               Cancelar
             </Button>
-            <Button type="submit" loading={loading} className="flex-1">
+            <Button type="submit" loading={modalLoading} className="flex-1">
               {member ? 'Atualizar Companheiro' : 'Adicionar Companheiro'}
             </Button>
           </div>
@@ -721,7 +742,6 @@ const Dashboard = () => {
         {/* Invites Tab */}
         {activeTab === 'invites' && (
           <div className="space-y-6">
-            {/* Stats */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               {[
                 { value: '150', label: 'Convites Físicos', icon: 'fas fa-print', color: 'bg-blue-600' },
@@ -741,7 +761,6 @@ const Dashboard = () => {
               ))}
             </div>
 
-            {/* Table */}
             <div className="bg-white rounded-xl shadow p-6">
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-xl font-semibold text-gray-900">Gestão de Convites</h2>
@@ -796,7 +815,6 @@ const Dashboard = () => {
         {/* Sales Tab */}
         {activeTab === 'sales' && (
           <div className="space-y-6">
-            {/* Stats */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               {[
                 { value: formatCurrency(22530), label: 'Faturamento Total', icon: 'fas fa-coins', color: 'bg-green-600' },
@@ -816,9 +834,7 @@ const Dashboard = () => {
               ))}
             </div>
 
-            {/* Charts */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Vendas por Evento */}
               <div className="bg-white rounded-xl shadow p-6">
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">Vendas por Evento</h3>
                 <ResponsiveContainer width="100%" height={300}>
@@ -833,7 +849,6 @@ const Dashboard = () => {
                 </ResponsiveContainer>
               </div>
 
-              {/* Formas de Pagamento */}
               <div className="bg-white rounded-xl shadow p-6">
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">Formas de Pagamento</h3>
                 <ResponsiveContainer width="100%" height={300}>
@@ -856,7 +871,6 @@ const Dashboard = () => {
               </div>
             </div>
 
-            {/* Vendas por Companheiro */}
             <div className="bg-white rounded-xl shadow p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Vendas por Companheiro</h3>
               <Table
