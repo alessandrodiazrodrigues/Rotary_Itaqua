@@ -1,311 +1,348 @@
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
+// pages/login.js
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import Head from 'next/head';
+import Button from '../components/common/Button';
+import Alert from '../components/common/Alert';
 
-export default function Login() {
-  const router = useRouter()
-  const [phone, setPhone] = useState('')
-  const [smsCode, setSmsCode] = useState('')
-  const [step, setStep] = useState('choice')
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
-  const [success, setSuccess] = useState('')
+const Login = () => {
+  const router = useRouter();
+  const [loginType, setLoginType] = useState('choice'); // choice, whatsapp, sms-code
+  const [phone, setPhone] = useState('');
+  const [smsCode, setSmsCode] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
-  // Cores do Rotary
   const ROTARY_COLORS = {
     primary: '#17458f',
     secondary: '#f7a81b',
     success: '#28a745',
-    danger: '#dc3545',
-    warning: '#ffc107',
-    info: '#17a2b8'
-  }
+    danger: '#dc3545'
+  };
 
   // Verificar se já está logado
   useEffect(() => {
-    const isLoggedIn = localStorage.getItem('rotary_user')
-    if (isLoggedIn) {
-      router.push('/dashboard') // ✅ CORRIGIDO: minúsculo
+    const user = localStorage.getItem('rotary_user');
+    if (user) {
+      router.push('/dashboard');
     }
-  }, [router])
+  }, [router]);
 
   // Handle Login Google
   const handleGoogleLogin = async () => {
-    setLoading(true)
-    setError('')
+    setLoading(true);
+    setError('');
     
     try {
+      // Simular login Google
       setTimeout(() => {
         const userData = {
           id: 'USER001',
           nome: 'Alessandro Rodrigues',
           email: 'cvcalessandro@gmail.com',
-          nivel_acesso: 'admin'
-        }
+          nivel_acesso: 'admin',
+          login_type: 'google'
+        };
         
-        localStorage.setItem('rotary_user', JSON.stringify(userData))
-        setSuccess('Login realizado com sucesso!')
+        localStorage.setItem('rotary_user', JSON.stringify(userData));
+        setSuccess('Login realizado com sucesso!');
         
         setTimeout(() => {
-          router.push('/dashboard') // ✅ CORRIGIDO: minúsculo
-        }, 1000)
-      }, 2000)
+          router.push('/dashboard');
+        }, 1000);
+        
+        setLoading(false);
+      }, 2000);
       
     } catch (error) {
-      setError('Erro no login Google')
-    } finally {
-      setLoading(false)
+      setError('Erro no login Google');
+      setLoading(false);
     }
-  }
+  };
 
-  // Handle WhatsApp Login
+  // Handle WhatsApp Login - Enviar SMS
   const handleWhatsAppLogin = async () => {
     if (!phone || phone.length < 10) {
-      setError('Digite um número de celular válido')
-      return
+      setError('Digite um número de celular válido');
+      return;
     }
 
-    setLoading(true)
-    setError('')
+    setLoading(true);
+    setError('');
     
     try {
+      // Simular envio de SMS
       setTimeout(() => {
-        setSuccess('Código enviado por SMS!')
-        setStep('code-input')
-        setLoading(false)
-      }, 2000)
+        setSuccess('Código enviado por SMS! Use 123456 para teste.');
+        setLoginType('sms-code');
+        setLoading(false);
+      }, 2000);
       
     } catch (error) {
-      setError('Erro ao enviar SMS')
-      setLoading(false)
+      setError('Erro ao enviar SMS');
+      setLoading(false);
     }
-  }
+  };
 
-  // Handle validação SMS
+  // Handle validação do código SMS
   const handleSMSValidation = async () => {
     if (!smsCode || smsCode.length !== 6) {
-      setError('Digite o código de 6 dígitos')
-      return
+      setError('Digite o código de 6 dígitos');
+      return;
     }
 
-    setLoading(true)
-    setError('')
+    setLoading(true);
+    setError('');
     
     try {
       setTimeout(() => {
         if (smsCode === '123456') {
           const userData = {
             id: 'USER002',
-            nome: 'Companheiro Rotary',
+            nome: 'João Silva',
             telefone: phone,
-            nivel_acesso: 'companheiro'
-          }
+            nivel_acesso: 'companheiro',
+            login_type: 'whatsapp'
+          };
           
-          localStorage.setItem('rotary_user', JSON.stringify(userData))
-          setSuccess('Login realizado com sucesso!')
+          localStorage.setItem('rotary_user', JSON.stringify(userData));
+          setSuccess('Login realizado com sucesso!');
           
           setTimeout(() => {
-            router.push('/dashboard') // ✅ CORRIGIDO: minúsculo
-          }, 1000)
+            router.push('/dashboard');
+          }, 1000);
         } else {
-          setError('Código incorreto. Use 123456 para teste.')
+          setError('Código incorreto. Use 123456 para teste.');
         }
-        setLoading(false)
-      }, 1500)
+        setLoading(false);
+      }, 1500);
       
     } catch (error) {
-      setError('Erro na validação')
-      setLoading(false)
+      setError('Erro na validação');
+      setLoading(false);
     }
-  }
+  };
 
   // Formatar telefone
   const formatPhoneInput = (value) => {
-    const cleaned = value.replace(/\D/g, '')
-    const match = cleaned.match(/^(\d{2})(\d{4,5})(\d{4})$/)
+    const cleaned = value.replace(/\D/g, '');
+    const match = cleaned.match(/^(\d{2})(\d{4,5})(\d{4})$/);
     
     if (match) {
-      return `(${match[1]}) ${match[2]}-${match[3]}`
+      return `(${match[1]}) ${match[2]}-${match[3]}`;
     }
     
-    return value
-  }
+    return value;
+  };
 
   const handlePhoneChange = (e) => {
-    const formatted = formatPhoneInput(e.target.value)
-    setPhone(formatted)
-  }
+    const formatted = formatPhoneInput(e.target.value);
+    setPhone(formatted);
+  };
 
-  // Voltar para escolha
   const handleBack = () => {
-    setStep('choice')
-    setPhone('')
-    setSmsCode('')
-    setError('')
-    setSuccess('')
-  }
+    setLoginType('choice');
+    setPhone('');
+    setSmsCode('');
+    setError('');
+    setSuccess('');
+  };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4" style={{ background: 'linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%)' }}>
-      <div className="max-w-md w-full">
-        
-        {/* Header com Logo */}
-        <div className="text-center mb-8">
-          <div 
-            className="w-20 h-20 mx-auto mb-4 rounded-full flex items-center justify-center text-white font-bold text-sm leading-tight"
-            style={{ backgroundColor: ROTARY_COLORS.primary }}
-          >
-            ROTARY<br/>ITAQUÁ<br/>4563
+    <>
+      <Head>
+        <title>Login - Rotary Club Itaquaquecetuba</title>
+        <meta name="description" content="Acesso ao Sistema de Gestão de Convites" />
+      </Head>
+
+      <div 
+        className="min-h-screen flex items-center justify-center p-4"
+        style={{ background: 'linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%)' }}
+      >
+        <div className="max-w-md w-full">
+          
+          {/* Header com Logo */}
+          <div className="text-center mb-8">
+            <div 
+              className="w-20 h-20 mx-auto mb-4 rounded-full flex items-center justify-center text-white font-bold text-sm leading-tight"
+              style={{ backgroundColor: ROTARY_COLORS.primary }}
+            >
+              ROTARY<br/>ITAQUÁ<br/>4563
+            </div>
+            <h1 className="text-2xl font-bold text-gray-900 mb-2">
+              Rotary Club Itaquaquecetuba
+            </h1>
+            <p className="text-gray-600">Sistema de Gestão de Convites</p>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">
-            Rotary Club Itaquaquecetuba
-          </h1>
-          <p className="text-gray-600">Sistema de Gestão de Convites</p>
-        </div>
 
-        {/* Card de Login */}
-        <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-200">
-          
-          {/* Mensagens */}
-          {error && (
-            <div className="mb-4 p-3 border border-red-200 rounded-lg text-red-700 text-sm" style={{ backgroundColor: '#f8d7da' }}>
-              {error}
-            </div>
-          )}
-          
-          {success && (
-            <div className="mb-4 p-3 border border-green-200 rounded-lg text-green-700 text-sm" style={{ backgroundColor: '#d4edda' }}>
-              {success}
-            </div>
-          )}
+          {/* Card de Login */}
+          <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-200">
+            
+            {/* Mensagens */}
+            {error && (
+              <Alert
+                type="error"
+                message={error}
+                dismissible={true}
+                onClose={() => setError('')}
+                className="mb-4"
+              />
+            )}
+            
+            {success && (
+              <Alert
+                type="success"
+                message={success}
+                dismissible={false}
+                className="mb-4"
+              />
+            )}
 
-          {/* Escolha de Login */}
-          {step === 'choice' && (
-            <div className="space-y-4">
-              <h2 className="text-xl font-semibold text-center mb-6">Acesso ao Sistema</h2>
-              
-              {/* Login Google */}
-              <button
-                onClick={handleGoogleLogin}
-                disabled={loading}
-                className="w-full flex items-center justify-center gap-3 px-4 py-3 border-2 rounded-lg font-medium transition-all hover:shadow-md disabled:opacity-50"
-                style={{ 
-                  borderColor: ROTARY_COLORS.primary,
-                  color: ROTARY_COLORS.primary
-                }}
-              >
-                {loading ? (
-                  <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin"></div>
-                ) : (
-                  <span className="text-2xl">🔵</span>
-                )}
-                Entrar com Google
-              </button>
-              
-              <div className="text-center text-gray-500 text-sm">
-                ─── ou ───
-              </div>
-              
-              {/* Login WhatsApp */}
-              <div className="space-y-3">
-                <input
-                  type="tel"
-                  placeholder="(11) 99999-1234"
-                  value={phone}
-                  onChange={handlePhoneChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:border-blue-500"
-                  maxLength={15}
-                />
-                <button
-                  onClick={handleWhatsAppLogin}
-                  disabled={loading}
-                  className="w-full flex items-center justify-center gap-3 px-4 py-3 rounded-lg font-medium text-white transition-all hover:opacity-90 disabled:opacity-50"
-                  style={{ backgroundColor: ROTARY_COLORS.secondary }}
-                >
-                  {loading ? (
-                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                  ) : (
-                    <span className="text-xl">📲</span>
-                  )}
-                  Enviar Código SMS
-                </button>
-              </div>
-              
-              <div className="mt-6">
-                <label className="flex items-center">
-                  <input
-                    type="checkbox"
-                    className="rounded border-gray-300 focus:ring-blue-500"
-                    style={{ accentColor: ROTARY_COLORS.primary }}
-                    defaultChecked
-                  />
-                  <span className="ml-2 text-sm text-gray-600">Manter-me conectado</span>
-                </label>
-              </div>
-            </div>
-          )}
-
-          {/* Input do Código SMS */}
-          {step === 'code-input' && (
-            <div className="space-y-4">
-              <div className="text-center">
-                <h2 className="text-xl font-semibold mb-2">Código Enviado</h2>
-                <p className="text-gray-600 text-sm mb-6">
-                  Digite o código de 6 dígitos enviado para<br/>
-                  <strong>{phone}</strong>
-                </p>
-                <p className="text-xs text-gray-500 mb-4">
-                  Para teste, use o código: <strong>123456</strong>
-                </p>
-              </div>
-              
+            {/* Escolha de Login */}
+            {loginType === 'choice' && (
               <div className="space-y-4">
-                <input
-                  type="text"
-                  placeholder="000000"
-                  value={smsCode}
-                  onChange={(e) => setSmsCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                  className="w-full px-4 py-3 text-center text-2xl font-mono border border-gray-300 rounded-lg focus:ring-2 focus:border-blue-500"
-                  maxLength={6}
-                />
+                <h2 className="text-xl font-semibold text-center mb-6">Acesso ao Sistema</h2>
                 
-                <button
-                  onClick={handleSMSValidation}
-                  disabled={loading || smsCode.length !== 6}
-                  className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-medium text-white transition-all hover:opacity-90 disabled:opacity-50"
-                  style={{ backgroundColor: ROTARY_COLORS.primary }}
-                >
-                  {loading && <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>}
-                  Confirmar Código
-                </button>
+                {/* Informação para usuários */}
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+                  <h3 className="font-medium text-blue-900 mb-2">Como acessar:</h3>
+                  <ul className="text-sm text-blue-800 space-y-1">
+                    <li><strong>👨‍💼 Alessandro (Admin):</strong> Login com Google</li>
+                    <li><strong>🤝 Companheiros:</strong> WhatsApp ou Google</li>
+                    <li><strong>📱 Código teste SMS:</strong> 123456</li>
+                  </ul>
+                </div>
                 
-                <button
-                  onClick={handleBack}
-                  className="w-full px-4 py-2 text-gray-600 hover:text-gray-800 font-medium transition-colors"
+                {/* Login Google */}
+                <Button
+                  variant="outline"
+                  fullWidth
+                  onClick={handleGoogleLogin}
+                  loading={loading}
+                  icon="fab fa-google"
+                  className="justify-center"
                 >
-                  ← Voltar
-                </button>
+                  Entrar com Google
+                </Button>
+                
+                <div className="text-center text-gray-500 text-sm">
+                  ─── ou ───
+                </div>
+                
+                {/* Login WhatsApp */}
+                <div className="space-y-3">
+                  <input
+                    type="tel"
+                    placeholder="(11) 99999-1234"
+                    value={phone}
+                    onChange={handlePhoneChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    maxLength={15}
+                  />
+                  <Button
+                    variant="secondary"
+                    fullWidth
+                    onClick={handleWhatsAppLogin}
+                    loading={loading}
+                    icon="fas fa-mobile-alt"
+                  >
+                    Enviar Código SMS
+                  </Button>
+                </div>
+                
+                <div className="mt-6">
+                  <label className="flex items-center">
+                    <input
+                      type="checkbox"
+                      className="rounded border-gray-300 focus:ring-blue-500"
+                      defaultChecked
+                    />
+                    <span className="ml-2 text-sm text-gray-600">Manter-me conectado</span>
+                  </label>
+                </div>
               </div>
-              
-              <div className="text-center text-sm text-gray-500">
-                Não recebeu? <button 
-                  className="hover:underline" 
-                  style={{ color: ROTARY_COLORS.primary }}
-                  onClick={handleWhatsAppLogin}
-                >
-                  Enviar novamente
-                </button>
+            )}
+
+            {/* Input do Código SMS */}
+            {loginType === 'sms-code' && (
+              <div className="space-y-4">
+                <div className="text-center">
+                  <h2 className="text-xl font-semibold mb-2">Código Enviado</h2>
+                  <p className="text-gray-600 text-sm mb-6">
+                    Digite o código de 6 dígitos enviado para<br/>
+                    <strong>{phone}</strong>
+                  </p>
+                  <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 mb-4">
+                    <p className="text-xs text-yellow-800">
+                      <strong>💡 Para teste:</strong> Use o código <strong>123456</strong>
+                    </p>
+                  </div>
+                </div>
+                
+                <div className="space-y-4">
+                  <input
+                    type="text"
+                    placeholder="000000"
+                    value={smsCode}
+                    onChange={(e) => setSmsCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                    className="w-full px-4 py-3 text-center text-2xl font-mono border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    maxLength={6}
+                  />
+                  
+                  <Button
+                    variant="primary"
+                    fullWidth
+                    onClick={handleSMSValidation}
+                    loading={loading}
+                    disabled={smsCode.length !== 6}
+                    icon="fas fa-check"
+                  >
+                    Confirmar Código
+                  </Button>
+                  
+                  <Button
+                    variant="ghost"
+                    fullWidth
+                    onClick={handleBack}
+                    icon="fas fa-arrow-left"
+                  >
+                    Voltar
+                  </Button>
+                </div>
+                
+                <div className="text-center text-sm text-gray-500">
+                  Não recebeu? 
+                  <button 
+                    className="ml-1 text-blue-600 hover:underline" 
+                    onClick={handleWhatsAppLogin}
+                  >
+                    Enviar novamente
+                  </button>
+                </div>
               </div>
-            </div>
-          )}
+            )}
 
-        </div>
+          </div>
 
-        {/* Footer */}
-        <div className="text-center mt-6 text-sm text-gray-500">
-          Para companheiros do<br/>
-          Rotary Club Itaquaquecetuba
+          {/* Footer */}
+          <div className="text-center mt-6 text-sm text-gray-500">
+            <p>Sistema exclusivo para</p>
+            <p className="font-medium">Rotary Club Itaquaquecetuba</p>
+            <p className="text-xs mt-2">Distrito 4563 • São Paulo</p>
+          </div>
+          
+          {/* Debug Info */}
+          <div className="mt-4 p-3 bg-gray-100 rounded-lg text-xs text-gray-600">
+            <p><strong>🧪 Dados para Teste:</strong></p>
+            <p>• <strong>Admin Google:</strong> Qualquer conta Google</p>
+            <p>• <strong>Companheiro SMS:</strong> Código 123456</p>
+            <p>• <strong>Telefone:</strong> Qualquer número válido</p>
+          </div>
         </div>
       </div>
-    </div>
-  )
-}
+    </>
+  );
+};
+
+export default Login;
