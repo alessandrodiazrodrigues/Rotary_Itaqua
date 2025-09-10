@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
-import { CONFIG } from '../src/config/settings'
+import { CONFIG } from '../config/settings' // ✅ CAMINHO CORRIGIDO
 
 export default function Login() {
   const router = useRouter()
@@ -175,8 +175,8 @@ export default function Login() {
     const variants = {
       primary: 'bg-blue-900 hover:bg-blue-800 text-white',
       secondary: 'bg-yellow-500 hover:bg-yellow-600 text-white',
-      outline: 'border-2 border-blue-900 text-blue-900 hover:bg-blue-900 hover:text-white',
-      ghost: 'text-gray-600 hover:text-blue-900 hover:bg-blue-50'
+      outline: 'border-2 border-blue-900 text-blue-900 hover:bg-blue-900 hover:text-white bg-white',
+      ghost: 'text-gray-600 hover:text-blue-900 hover:bg-blue-50 bg-transparent'
     }
 
     return (
