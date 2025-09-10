@@ -1,12 +1,12 @@
 // pages/dashboard.js
 import { useState, useEffect } from 'react'
 import Head from 'next/head'
-import { CONFIG } from '../src/config/settings'
+import { CONFIG } from '../config/settings' // ✅ CAMINHO CORRIGIDO
 
 export default function Dashboard() {
   const [loading, setLoading] = useState(true)
   const [activeTab, setActiveTab] = useState('dashboard')
-  const [stats, setStats] = useState({
+  const [stats] = useState({
     eventos: 2,
     convites: 265,
     receita: 22530,
