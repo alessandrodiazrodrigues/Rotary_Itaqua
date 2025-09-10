@@ -1,9 +1,10 @@
-// tailwind.config.js - VERSÃO COMPLETA CORRIGIDA
+// tailwind.config.js
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
+    './src/**/*.{js,ts,jsx,tsx}',
     './lib/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
@@ -43,9 +44,9 @@ module.exports = {
         }
       },
       
-      // Fontes
+      // Fontes - Usando Open Sans como padrão Rotary
       fontFamily: {
-        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: ['Open Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         mono: ['ui-monospace', 'SFMono-Regular', 'Consolas', 'monospace'],
       },
       
@@ -64,7 +65,7 @@ module.exports = {
         '4xl': '2rem',
       },
       
-      // Sombras customizadas
+      // Sombras customizadas Rotary
       boxShadow: {
         'rotary': '0 4px 6px -1px rgba(23, 69, 143, 0.1), 0 2px 4px -1px rgba(23, 69, 143, 0.06)',
         'rotary-lg': '0 10px 15px -3px rgba(23, 69, 143, 0.1), 0 4px 6px -2px rgba(23, 69, 143, 0.05)',
@@ -78,7 +79,6 @@ module.exports = {
         'gradient-rotary': 'linear-gradient(135deg, #17458f 0%, #0067c8 100%)',
         'gradient-rotary-gold': 'linear-gradient(135deg, #f7a81b 0%, #e6971a 100%)',
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       
       // Animações customizadas
@@ -152,16 +152,8 @@ module.exports = {
     },
   },
   plugins: [
-    // ✅ @tailwindcss/forms (que está instalado)
-    require('@tailwindcss/forms')({
-      strategy: 'class',
-    }),
-    
-    // ✅ @tailwindcss/typography (agora incluído no package.json)
-    require('@tailwindcss/typography'),
-    
-    // Plugin customizado para Rotary
-    function({ addUtilities, theme }) {
+    // Plugin customizado para utilitários Rotary
+    function({ addUtilities }) {
       const newUtilities = {
         '.text-shadow': {
           textShadow: '0 2px 4px rgba(0,0,0,0.10)',
@@ -218,11 +210,6 @@ module.exports = {
           '&:active': {
             transform: 'translateY(0)',
           },
-        },
-        
-        // Loading states
-        '.loading-pulse': {
-          animation: 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         },
         
         // Hover effects
