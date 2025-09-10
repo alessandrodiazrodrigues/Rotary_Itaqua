@@ -1,4 +1,4 @@
-// tailwind.config.js
+// tailwind.config.js - VERSÃO CORRIGIDA
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -152,13 +152,13 @@ module.exports = {
     },
   },
   plugins: [
-    // Plugin para forms
+    // ✅ APENAS @tailwindcss/forms (que está instalado)
     require('@tailwindcss/forms')({
       strategy: 'class',
     }),
     
-    // Plugin para typography
-    require('@tailwindcss/typography'),
+    // ❌ REMOVIDO @tailwindcss/typography (não instalado)
+    // require('@tailwindcss/typography'),
     
     // Plugin customizado para Rotary
     function({ addUtilities, theme }) {
