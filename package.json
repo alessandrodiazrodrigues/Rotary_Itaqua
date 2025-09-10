@@ -16,6 +16,7 @@
     "next": "14.0.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "next-auth": "^4.24.5",
     "react-icons": "^4.12.0",
     "qrcode": "^1.5.3",
     "js-cookie": "^3.0.5",
@@ -51,7 +52,9 @@
     "whatsapp",
     "next.js",
     "react",
-    "tailwindcss"
+    "tailwindcss",
+    "nextauth",
+    "oauth"
   ],
   "author": {
     "name": "Alessandro Rodrigues",
