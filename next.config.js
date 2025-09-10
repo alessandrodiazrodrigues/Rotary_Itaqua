@@ -1,4 +1,4 @@
-// next.config.js - VERSÃO CORRIGIDA PARA PRODUÇÃO
+// next.config.js
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -9,7 +9,8 @@ const nextConfig = {
     domains: [
       'drive.google.com',
       'lh3.googleusercontent.com',
-      'avatars.githubusercontent.com'
+      'avatars.githubusercontent.com',
+      'script.google.com'
     ],
     formats: ['image/webp', 'image/avif'],
   },
@@ -38,7 +39,7 @@ const nextConfig = {
         headers: [
           {
             key: 'X-Frame-Options',
-            value: 'DENY',
+            value: 'SAMEORIGIN', // Alterado de DENY para SAMEORIGIN (Google Sheets)
           },
           {
             key: 'X-Content-Type-Options',
@@ -47,6 +48,10 @@ const nextConfig = {
           {
             key: 'Referrer-Policy',
             value: 'origin-when-cross-origin',
+          },
+          {
+            key: 'X-XSS-Protection',
+            value: '1; mode=block',
           }
         ],
       },
@@ -59,17 +64,35 @@ const nextConfig = {
     ROTARY_VERSION: '1.0.0',
   },
 
-  // ❌ REMOVIDAS as configurações experimentais que causavam erro:
-  // experimental: {
-  //   optimizeCss: true,
-  //   scrollRestoration: true,
-  // },
+  // Configuração para APIs externas
+  async rewrites() {
+    return [
+      {
+        source: '/api/sheets/:path*',
+        destination: '/api/sheets/:path*',
+      },
+    ]
+  },
 
-  // Configuração de output para static export (se necessário)
-  trailingSlash: true,
+  // REMOVIDO trailingSlash: true (causa problemas com API Routes)
   
-  // Configuração de transpilação
-  transpilePackages: [],
+  // Otimizações
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+
+  // Configuração de transpilação (para recharts e outras libs)
+  transpilePackages: ['recharts'],
+
+  // Webpack personalizado para otimizações
+  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+    // Otimizações para produção
+    if (!dev && !isServer) {
+      config.optimization.splitChunks.chunks = 'all'
+    }
+    
+    return config
+  },
 }
 
 module.exports = nextConfig
