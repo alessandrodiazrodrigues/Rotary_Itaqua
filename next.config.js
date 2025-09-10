@@ -1,4 +1,4 @@
-// next.config.js
+// next.config.js - VERSÃO CORRIGIDA PARA PRODUÇÃO
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -59,18 +59,17 @@ const nextConfig = {
     ROTARY_VERSION: '1.0.0',
   },
 
-  // Configurações experimentais
-  experimental: {
-    optimizeCss: true,
-    scrollRestoration: true,
-  },
+  // ❌ REMOVIDAS as configurações experimentais que causavam erro:
+  // experimental: {
+  //   optimizeCss: true,
+  //   scrollRestoration: true,
+  // },
 
-  // Configurações de PWA (opcional)
-  // pwa: {
-  //   dest: 'public',
-  //   register: true,
-  //   skipWaiting: true,
-  // }
+  // Configuração de output para static export (se necessário)
+  trailingSlash: true,
+  
+  // Configuração de transpilação
+  transpilePackages: [],
 }
 
 module.exports = nextConfig
