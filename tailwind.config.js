@@ -1,4 +1,4 @@
-// tailwind.config.js - VERSÃO CORRIGIDA
+// tailwind.config.js - VERSÃO COMPLETA CORRIGIDA
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -152,13 +152,13 @@ module.exports = {
     },
   },
   plugins: [
-    // ✅ APENAS @tailwindcss/forms (que está instalado)
+    // ✅ @tailwindcss/forms (que está instalado)
     require('@tailwindcss/forms')({
       strategy: 'class',
     }),
     
-    // ❌ REMOVIDO @tailwindcss/typography (não instalado)
-    // require('@tailwindcss/typography'),
+    // ✅ @tailwindcss/typography (agora incluído no package.json)
+    require('@tailwindcss/typography'),
     
     // Plugin customizado para Rotary
     function({ addUtilities, theme }) {
@@ -231,6 +231,40 @@ module.exports = {
           '&:hover': {
             transform: 'translateY(-2px)',
             boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
+          },
+        },
+        
+        // Utility classes para Rotary
+        '.rotary-gradient': {
+          background: 'linear-gradient(135deg, #17458f 0%, #0067c8 100%)',
+        },
+        
+        '.rotary-gold-gradient': {
+          background: 'linear-gradient(135deg, #f7a81b 0%, #e6971a 100%)',
+        },
+        
+        '.rotary-shadow': {
+          boxShadow: '0 4px 6px -1px rgba(23, 69, 143, 0.1), 0 2px 4px -1px rgba(23, 69, 143, 0.06)',
+        },
+        
+        '.rotary-shadow-lg': {
+          boxShadow: '0 10px 15px -3px rgba(23, 69, 143, 0.1), 0 4px 6px -2px rgba(23, 69, 143, 0.05)',
+        },
+        
+        // Card styles
+        '.card-rotary': {
+          backgroundColor: 'white',
+          borderRadius: '0.75rem',
+          boxShadow: '0 4px 6px -1px rgba(23, 69, 143, 0.1), 0 2px 4px -1px rgba(23, 69, 143, 0.06)',
+          padding: '1.5rem',
+          border: '1px solid #e5e7eb',
+        },
+        
+        '.card-rotary-hover': {
+          transition: 'all 0.3s ease',
+          '&:hover': {
+            transform: 'translateY(-2px)',
+            boxShadow: '0 10px 15px -3px rgba(23, 69, 143, 0.1), 0 4px 6px -2px rgba(23, 69, 143, 0.05)',
           },
         },
       }
