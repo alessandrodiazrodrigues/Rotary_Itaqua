@@ -1,9 +1,7 @@
-// styles/globals.css
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-/* Variáveis CSS Rotary */
 :root {
   --rotary-blue: #17458f;
   --rotary-gold: #f7a81b;
@@ -16,7 +14,6 @@
   --info: #17a2b8;
 }
 
-/* Reset e Base */
 * {
   margin: 0;
   padding: 0;
@@ -36,7 +33,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* NProgress Customização */
 #nprogress {
   pointer-events: none;
 }
@@ -62,7 +58,6 @@ body {
   transform: rotate(3deg) translate(0px, -4px);
 }
 
-/* Scrollbar Personalizada */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -82,7 +77,6 @@ body {
   background: var(--rotary-blue-mono);
 }
 
-/* Seleção de Texto */
 ::selection {
   background: var(--rotary-gold);
   color: white;
@@ -93,13 +87,11 @@ body {
   color: white;
 }
 
-/* Foco Acessível */
 .focus-visible {
   outline: 2px solid var(--rotary-blue);
   outline-offset: 2px;
 }
 
-/* Animações Customizadas */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -122,30 +114,6 @@ body {
   }
 }
 
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
-}
-
-@keyframes bounce {
-  0%, 20%, 53%, 80%, 100% {
-    transform: translate3d(0, 0, 0);
-  }
-  40%, 43% {
-    transform: translate3d(0, -30px, 0);
-  }
-  70% {
-    transform: translate3d(0, -15px, 0);
-  }
-  90% {
-    transform: translate3d(0, -4px, 0);
-  }
-}
-
 .animate-fadeInUp {
   animation: fadeInUp 0.5s ease-out;
 }
@@ -154,7 +122,6 @@ body {
   animation: fadeInLeft 0.5s ease-out;
 }
 
-/* Utilitários Rotary */
 .bg-rotary-blue {
   background-color: var(--rotary-blue);
 }
@@ -179,7 +146,6 @@ body {
   border-color: var(--rotary-gold);
 }
 
-/* Gradients Rotary */
 .bg-gradient-rotary {
   background: linear-gradient(135deg, var(--rotary-blue) 0%, var(--rotary-blue-mono) 100%);
 }
@@ -188,7 +154,6 @@ body {
   background: linear-gradient(135deg, var(--rotary-gold) 0%, #e6971a 100%);
 }
 
-/* Shadows Rotary */
 .shadow-rotary {
   box-shadow: 0 4px 6px -1px rgba(23, 69, 143, 0.1), 0 2px 4px -1px rgba(23, 69, 143, 0.06);
 }
@@ -197,7 +162,6 @@ body {
   box-shadow: 0 10px 15px -3px rgba(23, 69, 143, 0.1), 0 4px 6px -2px rgba(23, 69, 143, 0.05);
 }
 
-/* Estados de Loading */
 .loading-skeleton {
   background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
   background-size: 200% 100%;
@@ -213,7 +177,6 @@ body {
   }
 }
 
-/* Print Styles */
 @media print {
   .no-print {
     display: none !important;
@@ -236,7 +199,6 @@ body {
   }
 }
 
-/* Responsive Utilities */
 .container-rotary {
   max-width: 1200px;
   margin: 0 auto;
@@ -255,7 +217,6 @@ body {
   }
 }
 
-/* Accessibility */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -268,7 +229,6 @@ body {
   border: 0;
 }
 
-/* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -279,7 +239,6 @@ body {
   }
 }
 
-/* High Contrast Mode */
 @media (prefers-contrast: high) {
   .bg-gradient-rotary,
   .bg-gradient-rotary-gold {
@@ -292,17 +251,6 @@ body {
   }
 }
 
-/* Dark Mode (para futuras implementações) */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #1a1a1a;
-    --surface: #2d2d2d;
-    --text-primary: #ffffff;
-    --text-secondary: #a0a0a0;
-  }
-}
-
-/* Utilities para Mobile */
 @media (max-width: 768px) {
   .mobile-full {
     width: 100vw;
