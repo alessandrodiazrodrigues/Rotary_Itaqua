@@ -1,38 +1,30 @@
 // pages/login.js
-import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import Head from 'next/head';
-import Button from '../components/common/Button';
-import Alert from '../components/common/Alert';
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
+import Head from 'next/head'
+import { CONFIG } from '../src/config/settings'
 
-const Login = () => {
-  const router = useRouter();
-  const [loginType, setLoginType] = useState('choice'); // choice, whatsapp, sms-code
-  const [phone, setPhone] = useState('');
-  const [smsCode, setSmsCode] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
-
-  const ROTARY_COLORS = {
-    primary: '#17458f',
-    secondary: '#f7a81b',
-    success: '#28a745',
-    danger: '#dc3545'
-  };
+export default function Login() {
+  const router = useRouter()
+  const [loginType, setLoginType] = useState('choice') // choice, whatsapp, sms-code
+  const [phone, setPhone] = useState('')
+  const [smsCode, setSmsCode] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
+  const [success, setSuccess] = useState('')
 
   // Verificar se já está logado
   useEffect(() => {
-    const user = localStorage.getItem('rotary_user');
+    const user = localStorage.getItem('rotary_user')
     if (user) {
-      router.push('/dashboard');
+      router.push('/dashboard')
     }
-  }, [router]);
+  }, [router])
 
   // Handle Login Google
   const handleGoogleLogin = async () => {
-    setLoading(true);
-    setError('');
+    setLoading(true)
+    setError('')
     
     try {
       // Simular login Google
@@ -40,60 +32,60 @@ const Login = () => {
         const userData = {
           id: 'USER001',
           nome: 'Alessandro Rodrigues',
-          email: 'cvcalessandro@gmail.com',
+          email: CONFIG.ADMIN_EMAIL,
           nivel_acesso: 'admin',
           login_type: 'google'
-        };
+        }
         
-        localStorage.setItem('rotary_user', JSON.stringify(userData));
-        setSuccess('Login realizado com sucesso!');
+        localStorage.setItem('rotary_user', JSON.stringify(userData))
+        setSuccess('Login realizado com sucesso!')
         
         setTimeout(() => {
-          router.push('/dashboard');
-        }, 1000);
+          router.push('/dashboard')
+        }, 1000)
         
-        setLoading(false);
-      }, 2000);
+        setLoading(false)
+      }, 2000)
       
     } catch (error) {
-      setError('Erro no login Google');
-      setLoading(false);
+      setError('Erro no login Google')
+      setLoading(false)
     }
-  };
+  }
 
   // Handle WhatsApp Login - Enviar SMS
   const handleWhatsAppLogin = async () => {
     if (!phone || phone.length < 10) {
-      setError('Digite um número de celular válido');
-      return;
+      setError('Digite um número de celular válido')
+      return
     }
 
-    setLoading(true);
-    setError('');
+    setLoading(true)
+    setError('')
     
     try {
       // Simular envio de SMS
       setTimeout(() => {
-        setSuccess('Código enviado por SMS! Use 123456 para teste.');
-        setLoginType('sms-code');
-        setLoading(false);
-      }, 2000);
+        setSuccess('Código enviado por SMS! Use 123456 para teste.')
+        setLoginType('sms-code')
+        setLoading(false)
+      }, 2000)
       
     } catch (error) {
-      setError('Erro ao enviar SMS');
-      setLoading(false);
+      setError('Erro ao enviar SMS')
+      setLoading(false)
     }
-  };
+  }
 
   // Handle validação do código SMS
   const handleSMSValidation = async () => {
     if (!smsCode || smsCode.length !== 6) {
-      setError('Digite o código de 6 dígitos');
-      return;
+      setError('Digite o código de 6 dígitos')
+      return
     }
 
-    setLoading(true);
-    setError('');
+    setLoading(true)
+    setError('')
     
     try {
       setTimeout(() => {
@@ -104,74 +96,126 @@ const Login = () => {
             telefone: phone,
             nivel_acesso: 'companheiro',
             login_type: 'whatsapp'
-          };
+          }
           
-          localStorage.setItem('rotary_user', JSON.stringify(userData));
-          setSuccess('Login realizado com sucesso!');
+          localStorage.setItem('rotary_user', JSON.stringify(userData))
+          setSuccess('Login realizado com sucesso!')
           
           setTimeout(() => {
-            router.push('/dashboard');
-          }, 1000);
+            router.push('/dashboard')
+          }, 1000)
         } else {
-          setError('Código incorreto. Use 123456 para teste.');
+          setError('Código incorreto. Use 123456 para teste.')
         }
-        setLoading(false);
-      }, 1500);
+        setLoading(false)
+      }, 1500)
       
     } catch (error) {
-      setError('Erro na validação');
-      setLoading(false);
+      setError('Erro na validação')
+      setLoading(false)
     }
-  };
+  }
 
   // Formatar telefone
   const formatPhoneInput = (value) => {
-    const cleaned = value.replace(/\D/g, '');
-    const match = cleaned.match(/^(\d{2})(\d{4,5})(\d{4})$/);
+    const cleaned = value.replace(/\D/g, '')
+    const match = cleaned.match(/^(\d{2})(\d{4,5})(\d{4})$/)
     
     if (match) {
-      return `(${match[1]}) ${match[2]}-${match[3]}`;
+      return `(${match[1]}) ${match[2]}-${match[3]}`
     }
     
-    return value;
-  };
+    return value
+  }
 
   const handlePhoneChange = (e) => {
-    const formatted = formatPhoneInput(e.target.value);
-    setPhone(formatted);
-  };
+    const formatted = formatPhoneInput(e.target.value)
+    setPhone(formatted)
+  }
 
   const handleBack = () => {
-    setLoginType('choice');
-    setPhone('');
-    setSmsCode('');
-    setError('');
-    setSuccess('');
-  };
+    setLoginType('choice')
+    setPhone('')
+    setSmsCode('')
+    setError('')
+    setSuccess('')
+  }
+
+  // Componente Alert simplificado
+  const Alert = ({ type, message, onClose, className = '' }) => {
+    const styles = {
+      error: 'bg-red-50 border border-red-200 text-red-700',
+      success: 'bg-green-50 border border-green-200 text-green-700',
+      warning: 'bg-yellow-50 border border-yellow-200 text-yellow-700',
+      info: 'bg-blue-50 border border-blue-200 text-blue-700'
+    }
+
+    return (
+      <div className={`rounded-lg p-4 ${styles[type]} ${className}`}>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center">
+            <i className={`fas fa-${type === 'error' ? 'exclamation-triangle' : type === 'success' ? 'check-circle' : type === 'warning' ? 'exclamation-triangle' : 'info-circle'} mr-2`}></i>
+            <span className="text-sm font-medium">{message}</span>
+          </div>
+          {onClose && (
+            <button
+              onClick={onClose}
+              className="ml-4 text-current hover:opacity-70"
+            >
+              <i className="fas fa-times"></i>
+            </button>
+          )}
+        </div>
+      </div>
+    )
+  }
+
+  // Componente Button simplificado
+  const Button = ({ variant = 'primary', children, onClick, loading, disabled, icon, className = '', ...props }) => {
+    const variants = {
+      primary: 'bg-blue-900 hover:bg-blue-800 text-white',
+      secondary: 'bg-yellow-500 hover:bg-yellow-600 text-white',
+      outline: 'border-2 border-blue-900 text-blue-900 hover:bg-blue-900 hover:text-white',
+      ghost: 'text-gray-600 hover:text-blue-900 hover:bg-blue-50'
+    }
+
+    return (
+      <button
+        onClick={onClick}
+        disabled={disabled || loading}
+        className={`w-full px-4 py-3 rounded-lg font-medium transition-colors duration-200 flex items-center justify-center gap-2 ${variants[variant]} disabled:opacity-50 disabled:cursor-not-allowed ${className}`}
+        {...props}
+      >
+        {loading ? (
+          <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin"></div>
+        ) : (
+          icon && <i className={icon}></i>
+        )}
+        {children}
+      </button>
+    )
+  }
 
   return (
     <>
       <Head>
-        <title>Login - Rotary Club Itaquaquecetuba</title>
+        <title>Login - {CONFIG.CLUB_NAME}</title>
         <meta name="description" content="Acesso ao Sistema de Gestão de Convites" />
       </Head>
 
-      <div 
-        className="min-h-screen flex items-center justify-center p-4"
-        style={{ background: 'linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%)' }}
-      >
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white flex items-center justify-center p-4">
         <div className="max-w-md w-full">
           
           {/* Header com Logo */}
           <div className="text-center mb-8">
             <div 
               className="w-20 h-20 mx-auto mb-4 rounded-full flex items-center justify-center text-white font-bold text-sm leading-tight"
-              style={{ backgroundColor: ROTARY_COLORS.primary }}
+              style={{ backgroundColor: CONFIG.COLORS.primary }}
             >
-              ROTARY<br/>ITAQUÁ<br/>4563
+              ROTARY<br/>ITAQUÁ<br/>{CONFIG.DISTRICT}
             </div>
             <h1 className="text-2xl font-bold text-gray-900 mb-2">
-              Rotary Club Itaquaquecetuba
+              {CONFIG.CLUB_NAME}
             </h1>
             <p className="text-gray-600">Sistema de Gestão de Convites</p>
           </div>
@@ -184,7 +228,6 @@ const Login = () => {
               <Alert
                 type="error"
                 message={error}
-                dismissible={true}
                 onClose={() => setError('')}
                 className="mb-4"
               />
@@ -194,7 +237,6 @@ const Login = () => {
               <Alert
                 type="success"
                 message={success}
-                dismissible={false}
                 className="mb-4"
               />
             )}
@@ -217,11 +259,9 @@ const Login = () => {
                 {/* Login Google */}
                 <Button
                   variant="outline"
-                  fullWidth
                   onClick={handleGoogleLogin}
                   loading={loading}
                   icon="fab fa-google"
-                  className="justify-center"
                 >
                   Entrar com Google
                 </Button>
@@ -242,7 +282,6 @@ const Login = () => {
                   />
                   <Button
                     variant="secondary"
-                    fullWidth
                     onClick={handleWhatsAppLogin}
                     loading={loading}
                     icon="fas fa-mobile-alt"
@@ -292,7 +331,6 @@ const Login = () => {
                   
                   <Button
                     variant="primary"
-                    fullWidth
                     onClick={handleSMSValidation}
                     loading={loading}
                     disabled={smsCode.length !== 6}
@@ -303,7 +341,6 @@ const Login = () => {
                   
                   <Button
                     variant="ghost"
-                    fullWidth
                     onClick={handleBack}
                     icon="fas fa-arrow-left"
                   >
@@ -328,8 +365,8 @@ const Login = () => {
           {/* Footer */}
           <div className="text-center mt-6 text-sm text-gray-500">
             <p>Sistema exclusivo para</p>
-            <p className="font-medium">Rotary Club Itaquaquecetuba</p>
-            <p className="text-xs mt-2">Distrito 4563 • São Paulo</p>
+            <p className="font-medium">{CONFIG.CLUB_NAME}</p>
+            <p className="text-xs mt-2">Distrito {CONFIG.DISTRICT} • São Paulo</p>
           </div>
           
           {/* Debug Info */}
@@ -342,7 +379,5 @@ const Login = () => {
         </div>
       </div>
     </>
-  );
-};
-
-export default Login;
+  )
+}
