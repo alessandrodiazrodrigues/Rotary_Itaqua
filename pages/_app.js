@@ -3,7 +3,7 @@ import '../styles/globals.css'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { CONFIG } from '../src/config/settings'
+import { CONFIG } from '../config/settings' // ✅ CAMINHO CORRIGIDO
 
 export default function App({ Component, pageProps }) {
   const router = useRouter()
