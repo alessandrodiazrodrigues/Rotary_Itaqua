@@ -3,11 +3,7 @@ import '../styles/globals.css'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import NProgress from 'nprogress'
-import 'nprogress/nprogress.css'
-
-// Configurar NProgress
-NProgress.configure({ showSpinner: false })
+import { CONFIG } from '../src/config/settings'
 
 export default function App({ Component, pageProps }) {
   const router = useRouter()
@@ -16,12 +12,10 @@ export default function App({ Component, pageProps }) {
   useEffect(() => {
     const handleStart = () => {
       setLoading(true)
-      NProgress.start()
     }
     
     const handleStop = () => {
       setLoading(false)
-      NProgress.done()
     }
 
     router.events.on('routeChangeStart', handleStart)
@@ -38,10 +32,10 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title>Sistema de Convites - Rotary Club Itaquaquecetuba</title>
-        <meta name="description" content="Sistema de Gestão de Convites para eventos do Rotary Club Itaquaquecetuba" />
+        <title>Sistema de Convites - {CONFIG.CLUB_NAME}</title>
+        <meta name="description" content={`Sistema de Gestão de Convites para eventos do ${CONFIG.CLUB_NAME}`} />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-        <meta name="theme-color" content="#17458f" />
+        <meta name="theme-color" content={CONFIG.COLORS.primary} />
         
         {/* Favicons */}
         <link rel="icon" href="/favicon.ico" />
@@ -60,7 +54,7 @@ export default function App({ Component, pageProps }) {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
         <link 
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" 
+          href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" 
           rel="stylesheet" 
         />
 
@@ -71,24 +65,37 @@ export default function App({ Component, pageProps }) {
         <meta name="apple-mobile-web-app-title" content="Rotary Convites" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="msapplication-TileColor" content="#17458f" />
+        <meta name="msapplication-TileColor" content={CONFIG.COLORS.primary} />
         <meta name="msapplication-tap-highlight" content="no" />
 
         {/* Open Graph */}
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Sistema de Convites - Rotary Club Itaquaquecetuba" />
-        <meta property="og:description" content="Sistema de Gestão de Convites para eventos do Rotary Club Itaquaquecetuba" />
-        <meta property="og:site_name" content="Rotary Club Itaquaquecetuba" />
+        <meta property="og:title" content={`Sistema de Convites - ${CONFIG.CLUB_NAME}`} />
+        <meta property="og:description" content={`Sistema de Gestão de Convites para eventos do ${CONFIG.CLUB_NAME}`} />
+        <meta property="og:site_name" content={CONFIG.CLUB_NAME} />
         <meta property="og:url" content="https://convites.rotaryitaqua.org.br" />
         <meta property="og:image" content="/og-image.png" />
       </Head>
 
-      {/* Loading Bar */}
+      {/* Loading Bar Simples */}
       {loading && (
-        <div className="fixed top-0 left-0 w-full h-1 bg-blue-600 z-50">
-          <div className="h-full bg-yellow-500 animate-pulse"></div>
+        <div className="fixed top-0 left-0 w-full h-1 z-50" style={{ backgroundColor: CONFIG.COLORS.primary }}>
+          <div 
+            className="h-full animate-pulse" 
+            style={{ backgroundColor: CONFIG.COLORS.secondary }}
+          ></div>
         </div>
       )}
+
+      {/* CSS Variables Globais */}
+      <style jsx global>{`
+        :root {
+          --rotary-blue: ${CONFIG.COLORS.primary};
+          --rotary-gold: ${CONFIG.COLORS.secondary};
+          --rotary-success: ${CONFIG.COLORS.success};
+          --rotary-danger: ${CONFIG.COLORS.danger};
+        }
+      `}</style>
 
       <Component {...pageProps} />
     </>
